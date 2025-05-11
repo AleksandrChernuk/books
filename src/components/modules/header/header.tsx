@@ -21,13 +21,13 @@ function Header() {
           </div>
           <nav className="hidden md:flex items-center justify-between gap-4 ">
             <Button asChild variant={"link"} size={"sm"}>
+              <Link href={"/about"}>Про автора</Link>
+            </Button>
+            <Button asChild variant={"link"} size={"sm"}>
               <Link href={"/blog"}>Блог</Link>
             </Button>
             <Button asChild variant={"link"} size={"sm"}>
               <Link href={"/books"}>Книги</Link>
-            </Button>
-            <Button asChild variant={"link"} size={"sm"}>
-              <Link href={"/about"}>Про автора</Link>
             </Button>
           </nav>
           <div className="md:hidden">
