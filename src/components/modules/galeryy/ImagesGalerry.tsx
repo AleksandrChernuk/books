@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export default function ImagesGalerry() {
   return (
-    <ul className="flex items-center justify-between gap-4">
+    <ul className="flex flex-col md:flex-row items-center justify-between gap-10">
       {booksList.slice(0, 3).map((e) => (
         <Card key={e.title} className="p-2">
           <CardTitle>{e.title}</CardTitle>

@@ -4,9 +4,9 @@ import React from "react";
 export default function BlogPage() {
   return (
     <section>
-      <div className="w-5xl mx-auto px-4">
+      <div className="max-w-6xl mx-auto px-4">
         <section>
-          <div className="w-5xl mx-auto px-4 py-12 text-gray-700">
+          <div className="max-w-6xl mx-auto px-4 py-12 text-gray-700">
             <div className="py-12 max-w-md mx-auto">
               <NewsletterFormPreview />
             </div>

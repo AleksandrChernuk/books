@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <div>
       <section>
-        <div className="w-5xl mx-auto px-4 py-20">
+        <div className="max-w-6xl mx-auto px-4 py-20">
           <ul className="flex items-center justify-between gap-4">
             <li>
               <h1 className="text-4xl text-slate-800 mb-4">
@@ -31,13 +31,13 @@ export default function Home() {
         </div>
       </section>
       <section>
-        <div className="w-5xl mx-auto px-4 py-12 text-gray-700">
+        <div className="max-w-6xl mx-auto px-4 py-12 text-gray-700">
           <ImagesGalerry />
         </div>
       </section>
 
       <section>
-        <div className="w-5xl mx-auto px-4 pb-12 text-gray-700">
+        <div className="max-w-6xl mx-auto px-4 pb-12 text-gray-700">
           <div className="py-12 max-w-md mx-auto">
             <NewsletterFormPreview />
           </div>

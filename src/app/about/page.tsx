@@ -4,7 +4,7 @@ import React from "react";
 export default function AboutPage() {
   return (
     <section>
-      <div className="w-5xl mx-auto px-4 py-12 text-gray-700">
+      <div className="max-w-6xl mx-auto px-4 py-12 text-gray-700">
         <div>
           {" "}
           <h2 className="text-3xl font-bold mb-6">Про автора</h2>
@@ -97,7 +97,7 @@ export default function AboutPage() {
             думок і документальний фільм про технології креативного мислення.
             Завжди відкритий до співпраці й готовий ділитися досвідом.
           </p>
-          <div className="w-5xl mx-auto px-4 py-12 text-gray-700">
+          <div className="max-w-6xl mx-auto px-4 py-12 text-gray-700">
             <div className="py-12 max-w-md mx-auto">
               <NewsletterFormPreview />
             </div>
