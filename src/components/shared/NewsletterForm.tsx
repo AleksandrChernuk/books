@@ -26,8 +26,12 @@ import { Input } from "@/components/ui/input";
 const formSchema = z.object({
   email: z.string().email({ message: "Невірна електронна адреса" }),
 });
+type Props = {
+  title: string;
+  text: string;
+};
 
-export default function NewsletterFormPreview() {
+export default function NewsletterFormPreview({ title, text }: Props) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -46,16 +50,18 @@ export default function NewsletterFormPreview() {
       );
     }
   }
-
+  // <CardTitle className="text-2xl">Зв’яжіться з автором</CardTitle>
+  //         <CardDescription>
+  //           Маєте питання щодо творчості чи пропозиції співпраці? Заповніть
+  //           форму нижче, і автор зв’яжеться з вами в найкоротший термін.
+  //         </CardDescription>
+  //       </CardHeader>
   return (
     <div className="flex min-h-[50vh] h-full w-full items-center justify-center px-4">
       <Card className="mx-auto w-full">
         <CardHeader>
-          <CardTitle className="text-2xl">Зв’яжіться з автором</CardTitle>
-          <CardDescription>
-            Маєте питання щодо творчості чи пропозиції співпраці? Заповніть
-            форму нижче, і автор зв’яжеться з вами в найкоротший термін.
-          </CardDescription>
+          <CardTitle className="text-2xl">{title}</CardTitle>
+          <CardDescription>{text}</CardDescription>
         </CardHeader>
         <CardContent>
           <Form {...form}>

@@ -1,15 +1,25 @@
 import { Card, CardContent, CardFooter, CardTitle } from "@/components/ui/card";
-import { booksList } from "@/constans/books";
+import { Tbooks } from "@/constans/books";
 import Image from "next/image";
 
-export default function ImagesGalerry() {
+type Props = {
+  list: Tbooks[];
+};
+
+export default function ImagesGalerry({ list }: Props) {
   return (
-    <ul className="flex flex-col md:flex-row items-center justify-between gap-10">
-      {booksList.slice(0, 3).map((e) => (
-        <Card key={e.title} className="p-2">
-          <CardTitle>{e.title}</CardTitle>
+    <ul className="grid md:grid-cols-3 gap-10">
+      {list.map((e) => (
+        <Card key={e.title} className="flex items-center justify-center p-2">
+          <CardTitle className="text-xl text-slate-800">{e.title}</CardTitle>
           <CardContent>
-            <Image src={e.src} alt={e.title} width={200} height={200} />
+            <Image
+              placeholder="blur"
+              src={e.src}
+              alt={e.title}
+              width={200}
+              height={200}
+            />
           </CardContent>
           <CardFooter>
             <ul className="flex items-center gap-2">

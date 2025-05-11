@@ -11,26 +11,35 @@ import {
 } from "@/components/ui/drawer";
 import { Menu } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export function MobileMenu() {
+  const pahname = usePathname();
   return (
     <Drawer>
       <DrawerTrigger asChild>
-        <Button variant="ghost" size={"icon"}>
-          <Menu />
+        <Button variant="ghost" size={"default"}>
+          <Menu size={40} />
         </Button>
       </DrawerTrigger>
       <DrawerContent>
         <div className="mx-auto w-full max-w-sm">
-          <nav className="flex items-center justify-between gap-4">
-            <Button asChild variant={"link"} size={"sm"}>
+          <nav className="flex items-center gap-4 text-xl">
+            <Button
+              asChild
+              variant={"link"}
+              size={"sm"}
+              className={`${pahname === "/about" && "underline"}`}
+            >
               <Link href={"/about"}>Про автора</Link>
             </Button>
             <Button asChild variant={"link"} size={"sm"}>
-              <Link href={"/blog"}>Блог</Link>
-            </Button>
-            <Button asChild variant={"link"} size={"sm"}>
-              <Link href={"/books"}>Книги</Link>
+              <Link
+                href={"/books"}
+                className={`${pahname === "/books" && "underline"}`}
+              >
+                Книги
+              </Link>
             </Button>
           </nav>
 
