@@ -1,15 +1,13 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Header from "@/components/modules/header/header";
+import Footer from "@/components/modules/footer/footer";
+import { Shantell_Sans } from "next/font/google";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const geist = Shantell_Sans({
+  weight: ["300", "400", "500", "600", "700", "800"],
+  subsets: ["cyrillic", "cyrillic-ext", "latin", "latin-ext"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -24,11 +22,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        suppressHydrationWarning
-      >
-        {children}
+      <body className={`${geist.className}`} suppressHydrationWarning>
+        <div className="flex flex-col h-dvh">
+          <Header />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </div>
       </body>
     </html>
   );
