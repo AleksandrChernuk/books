@@ -1,12 +1,13 @@
+import NewsletterFormPreview from "@/components/shared/NewsletterForm";
 import React from "react";
 
 export default function AboutPage() {
   return (
     <section>
       <div className="w-5xl mx-auto px-4 py-12 text-gray-700">
-        <section id="about-author" className="container mx-auto py-12">
+        <div>
+          {" "}
           <h2 className="text-3xl font-bold mb-6">Про автора</h2>
-
           <h3 className="text-2xl font-semibold mb-4">
             Ранні роки та становлення
           </h3>
@@ -22,7 +23,6 @@ export default function AboutPage() {
             письма. Саме тут він написав перші прози, що надихнули його на
             подальшу творчість.
           </p>
-
           <h3 className="text-2xl font-semibold mb-4">
             Літературний дебют і соціальна проза
           </h3>
@@ -37,7 +37,6 @@ export default function AboutPage() {
             безпредел», поєднавший інтерв’ю учасників конфлікту, історичні
             довідки та художній аналіз пострадянської реальності.
           </p>
-
           <h3 className="text-2xl font-semibold mb-4">
             Пошук балансу: від соціального до ліричного
           </h3>
@@ -46,7 +45,6 @@ export default function AboutPage() {
             монологами героїв і поетичними описами великого міста, поєднавши
             суспільну тематику з глибинним дослідженням душі людини.
           </p>
-
           <h3 className="text-2xl font-semibold mb-4">
             Есеїстика й аналітична проза
           </h3>
@@ -58,7 +56,6 @@ export default function AboutPage() {
             «Україна у краю» (2014) поєднала репортажі, інтерв’ю та аналітику
             про виклики незалежності та роль інтелігенції в сучасній Україні.
           </p>
-
           <h3 className="text-2xl font-semibold mb-4">
             Поєднання класики та модерну
           </h3>
@@ -67,7 +64,6 @@ export default function AboutPage() {
             умовах мегаполісу, де автор поєднує класичну трагедію з сучасним
             драматургічним ритмом і тонким гумором.
           </p>
-
           <h3 className="text-2xl font-semibold mb-4">
             Сценарна та рекламна діяльність
           </h3>
@@ -80,14 +76,12 @@ export default function AboutPage() {
             Lowe Lintas. Серед його кампаній — «Смак бажання» (Korona), «Лови
             момент» (Bond Street), «Краще разом!» з Кличками (Чернігівське).
           </p>
-
           <h3 className="text-2xl font-semibold mb-4">Визнання та вплив</h3>
           <ul className="list-disc list-inside mb-6">
             <li>Телетріумф-2012 за «Жіночий доктор»</li>
             <li>Спеціальний приз «Золотий пропелер» (2013)</li>
             <li>Номінація «Книжка року» (2013) за «Єврей — це фах»</li>
           </ul>
-
           <h3 className="text-2xl font-semibold mb-4">
             Творчий метод і філософія
           </h3>
@@ -97,14 +91,18 @@ export default function AboutPage() {
             починаючи з детального плану та доводячи рукопис до лаконічної
             майстерності.
           </p>
-
           <h3 className="text-2xl font-semibold mb-4">Майбутні проєкти</h3>
           <p className="mb-6">
             Новий роман про постіндустріальні міста, серія інтерв’ю з лідерами
             думок і документальний фільм про технології креативного мислення.
             Завжди відкритий до співпраці й готовий ділитися досвідом.
           </p>
-        </section>
+          <div className="w-5xl mx-auto px-4 py-12 text-gray-700">
+            <div className="py-12 max-w-md mx-auto">
+              <NewsletterFormPreview />
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );

@@ -1,5 +1,7 @@
 import Image from "next/image";
 import mainImg from "@/assets/title.webp";
+import ImagesGalerry from "@/components/modules/galeryy/ImagesGalerry";
+import NewsletterFormPreview from "@/components/shared/NewsletterForm";
 
 export default function Home() {
   return (
@@ -26,6 +28,19 @@ export default function Home() {
               />
             </li>
           </ul>
+        </div>
+      </section>
+      <section>
+        <div className="w-5xl mx-auto px-4 py-12 text-gray-700">
+          <ImagesGalerry />
+        </div>
+      </section>
+
+      <section>
+        <div className="w-5xl mx-auto px-4 pb-12 text-gray-700">
+          <div className="py-12 max-w-md mx-auto">
+            <NewsletterFormPreview />
+          </div>
         </div>
       </section>
     </div>
