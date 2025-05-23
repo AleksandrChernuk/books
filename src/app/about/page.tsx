@@ -2,102 +2,187 @@ import React from "react";
 
 export default function AboutPage() {
   return (
-    <section>
-      <div className="max-w-6xl mx-auto px-4 py-12 text-gray-700">
-        <div>
-          {" "}
-          <h2 className="text-3xl font-bold mb-6">Про автора</h2>
-          <h3 className="text-2xl font-semibold mb-4">
-            Ранні роки та становлення
-          </h3>
-          <p className="mb-4">
-            Народився 24 лютого 1967 року в Києві в родині журналіста та
-            викладачки літератури. З дитинства оточений книгами та дискусіями
-            про роль слова в суспільстві, Валерій захоплювався історією і вже в
-            шкільні роки експериментував із короткими оповіданнями.
-          </p>
-          <p className="mb-6">
-            У 1987 році вступив на факультет журналістики КНУ ім. Тараса
-            Шевченка, де здобув ґрунтовну підготовку з методів публіцистичного
-            письма. Саме тут він написав перші прози, що надихнули його на
-            подальшу творчість.
-          </p>
-          <h3 className="text-2xl font-semibold mb-4">
-            Літературний дебют і соціальна проза
-          </h3>
-          <p className="mb-4">
-            У 1994 році вийшла дебютна повість «Штабна сука» — гостросюжетний
-            твір про будні радянської армії, позбавлений романтики та наповнений
-            психологічними дилемами. Критики порівнювали автора з раннім
-            Солженіциним.
-          </p>
-          <p className="mb-6">
-            У 1996 році побачив світ документальний роман «Придністровський
-            безпредел», поєднавший інтерв’ю учасників конфлікту, історичні
-            довідки та художній аналіз пострадянської реальності.
-          </p>
-          <h3 className="text-2xl font-semibold mb-4">
-            Пошук балансу: від соціального до ліричного
-          </h3>
-          <p className="mb-6">
-            Роман «Любовь &amp; Слава» (2010) відзначився чуттєвими внутрішніми
-            монологами героїв і поетичними описами великого міста, поєднавши
-            суспільну тематику з глибинним дослідженням душі людини.
-          </p>
-          <h3 className="text-2xl font-semibold mb-4">
-            Есеїстика й аналітична проза
-          </h3>
-          <p className="mb-4">
-            Збірка есеїв «Єврей — це фах» (2013) — соціально-філософські роздуми
-            про ідентичність і культурну пам’ять.
-          </p>
-          <p className="mb-6">
-            «Україна у краю» (2014) поєднала репортажі, інтерв’ю та аналітику
-            про виклики незалежності та роль інтелігенції в сучасній Україні.
-          </p>
-          <h3 className="text-2xl font-semibold mb-4">
-            Поєднання класики та модерну
-          </h3>
-          <p className="mb-6">
-            Роман «Едіп московський» (2016) — переосмислення міфа про Едіпа в
-            умовах мегаполісу, де автор поєднує класичну трагедію з сучасним
-            драматургічним ритмом і тонким гумором.
-          </p>
-          <h3 className="text-2xl font-semibold mb-4">
-            Сценарна та рекламна діяльність
-          </h3>
-          <p className="mb-4">
-            Сценарист серіалу «Жіночий доктор» (Телетріумф-2012) та
-            документального фільму «Вільна енергія Тесли».
-          </p>
-          <p className="mb-6">
-            Креативний директор Young &amp; Rubicam, McCann-Erickson, Adventa
-            Lowe Lintas. Серед його кампаній — «Смак бажання» (Korona), «Лови
-            момент» (Bond Street), «Краще разом!» з Кличками (Чернігівське).
-          </p>
-          <h3 className="text-2xl font-semibold mb-4">Визнання та вплив</h3>
-          <ul className="list-disc list-inside mb-6">
-            <li>Телетріумф-2012 за «Жіночий доктор»</li>
-            <li>Спеціальний приз «Золотий пропелер» (2013)</li>
-            <li>Номінація «Книжка року» (2013) за «Єврей — це фах»</li>
-          </ul>
-          <h3 className="text-2xl font-semibold mb-4">
-            Творчий метод і філософія
-          </h3>
-          <p className="mb-6">
-            Принцип «автентичності голосу» й «істини через форму»: працює над
-            текстом як над сценарієм, опрацьовує структуру, діалоги й ритм,
-            починаючи з детального плану та доводячи рукопис до лаконічної
-            майстерності.
-          </p>
-          <h3 className="text-2xl font-semibold mb-4">Майбутні проєкти</h3>
-          <p className="mb-6">
-            Новий роман про постіндустріальні міста, серія інтерв’ю з лідерами
-            думок і документальний фільм про технології креативного мислення.
-            Завжди відкритий до співпраці й готовий ділитися досвідом.
-          </p>
+    <div>
+      <section>
+        <div className="max-w-6xl mx-auto px-4 text-gray-700">
+          <div className="pt-10 md:pt-20">
+            <h3 className="text-center">Основні досягнення</h3>
+            <ul className="list-disc pl-5">
+              <li>
+                <p>17 книжок загальним накладом 150,000+ примірників.</p>
+              </li>
+              <li>
+                <p>
+                  Сценарії 15 ТБ-фільмів, серіалів та YouTube проектів (загальна
+                  аудиторія: десятки мільйонів).
+                </p>
+              </li>
+              <li>
+                <p>
+                  Розробляв та створював міжнародні рекламні кампанії з
+                  загальною аудиторією понад 250 млн осіб.
+                </p>
+              </li>
+              <li>
+                <p>
+                  Переможець і номінант 10+ професійних нагород у галузях
+                  реклами, ТБ та літератури.
+                </p>
+              </li>
+            </ul>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+      <section>
+        <div className="max-w-6xl mx-auto px-4 text-gray-700">
+          <div className="py-5 md:py-10">
+            <h3 className="text-center">Фаховий досвід</h3>
+            <h4 className=""> Незалежні креативні та розробницькі проєкти:</h4>
+
+            <ul className="list-disc pl-5 mb-4">
+              <li>
+                <p>
+                  <span className="underline font-semibold">
+                    Game Writer | Roguelike Deckbuilder Game (2024 – Present)
+                  </span>
+                  <br />
+                  <span>
+                    Розробка глибоких, захоплюючих оповідей для стратегічної
+                    інді-гри. Створення сюжетних ліній, арок персонажів і
+                    цілісного світу гри.
+                  </span>
+                </p>
+              </li>
+              <li>
+                <p>
+                  <span className="underline">
+                    Game Writer | Strategy Card Game (2024 – Present)
+                  </span>
+                  <br />
+                  <span>
+                    Розробка концепції, змісту гри та її ігрової механіки.
+                  </span>
+                </p>
+              </li>
+              <li>
+                <p>
+                  <span className="underline ">
+                    Lead Writer & Designer | Live History Adventure (Tourism
+                    App: Story + Quest + Audio Drama) (2024 – Present)
+                  </span>
+                  <br />
+                  <span>
+                    Розробка та написання сюжетів, квестів і інтерактивних
+                    елементів. Інтеграція аудіорозповіді з гейміфікованими
+                    екскурсіями містом.
+                  </span>
+                </p>
+              </li>
+              <li>
+                <p>
+                  <span className="underline ">
+                    Freelance Content Creator (Books, YouTube Scripts, Articles)
+                    (2023 – Present)
+                  </span>
+                  <br />
+                  <span>
+                    Гострайтинг книг і сценаріїв для міжнародних клієнтів.
+                    Створення захопливих оповідей на різних платформах.
+                  </span>
+                </p>
+              </li>
+              <li>
+                <p>
+                  <span className="underline ">
+                    Author and Publisher (Historical & Storytelling Books) (2019
+                    – 2023)
+                  </span>
+                  <br />
+                  <span>
+                    Видав 3 книги. Досліджував роль сторітелінгу у світовій
+                    історії та культурі.
+                  </span>
+                </p>
+              </li>
+            </ul>
+
+            <h4>Галузевий досвід (креативне лідерство та сторітеллінг):</h4>
+            <ul className="list-disc pl-5">
+              <li>
+                <p>
+                  <span className="underline font-semibold">
+                    Creative Lead & Strategist | Manava Crypto (2022 – 2023)
+                  </span>
+                  <br />
+                  <span>Розробив ідеологічну концепцію Manava Multiverse.</span>
+                </p>
+              </li>
+              <li>
+                <p>
+                  <span className="underline">
+                    CreativeProducer & Creative Director | Storytellers Studio
+                    (2018 – 2019)
+                  </span>
+                  <br />
+                  <span>
+                    Розробляв top notch веб-серіали з інтегрованою історією
+                    бренду.
+                    <br />
+                    Очолював команду з 60-80 людей, контролюючи концепцію та
+                    продакшн.
+                  </span>
+                </p>
+              </li>
+              <li>
+                <p>
+                  <span className="underline ">
+                    Creative Producer | 2+2 TV Channel (2017-2018)
+                  </span>
+                  <br />
+                  <span>
+                    Розробив серію документальних фільмів для проекту
+                    «Загублений світ».
+                  </span>
+                </p>
+              </li>
+              <li>
+                <p>
+                  <span className="underline ">
+                    Creative Director | 1+1 TV Channel (2014 – 2017)
+                  </span>
+                  <br />
+                  <span>
+                    Очолював команду з 7 чоловік у формуванні творчого бачення
+                    1+1 Marketing.
+                  </span>
+                </p>
+              </li>
+              <li>
+                <p>
+                  <span className="underline ">
+                    Creative Director | Film.Ua Production (2013)
+                  </span>
+                  <br />
+                  <span>Розробляв художні серіали та докудрами.</span>
+                </p>
+              </li>
+              <li>
+                <p>
+                  <span className="underline ">
+                    Creative Director | Multiple Ad Agencies (including
+                    international firms) (1996 – 2014)
+                  </span>
+                  <br />
+                  <span>
+                    Керував творчими колективами по 5-25 осіб. <br /> Створював
+                    мультинаціональні рекламні кампанії для світових брендів
+                  </span>
+                </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </div>
   );
 }
