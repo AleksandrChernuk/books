@@ -46,7 +46,7 @@ export function MobileMenu() {
                 href={"/blog"}
                 className={`${pahname === "/blog" && "underline"}`}
               >
-                Книги
+                Публікації
               </Link>
             </Button>
           </nav>
