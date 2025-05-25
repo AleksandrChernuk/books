@@ -28,7 +28,7 @@ function Header() {
             </Button>
 
             <Button asChild variant={"link"} size={"sm"} className="text-xl">
-              <Link href={"/books"}>Книги</Link>
+              <Link href={"/blog"}>Публікації</Link>
             </Button>
           </nav>
           <div className="md:hidden">

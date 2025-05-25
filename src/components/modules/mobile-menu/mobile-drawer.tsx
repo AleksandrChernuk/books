@@ -43,8 +43,8 @@ export function MobileMenu() {
             </Button>
             <Button asChild variant={"link"} size={"sm"}>
               <Link
-                href={"/books"}
-                className={`${pahname === "/books" && "underline"}`}
+                href={"/blog"}
+                className={`${pahname === "/blog" && "underline"}`}
               >
                 Книги
               </Link>
