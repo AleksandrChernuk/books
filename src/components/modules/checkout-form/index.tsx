@@ -19,7 +19,7 @@ type BlogFormProps = { book: Book };
 
 export default function CheckoutForm({ book }: BlogFormProps) {
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [, setError] = useState<string | null>(null);
 
   const form = useForm<FormValues>({
     defaultValues: { format: "pdf" },
@@ -33,8 +33,7 @@ export default function CheckoutForm({ book }: BlogFormProps) {
       const { data, signature } = await checkout({
         book: book,
         format: formData.format,
-        result_url: `http://prymost.com.ua/books/${book.slug}`,
-        // server_url: `http://localhost:3000/api/liqpay-callback`,
+        result_url: `https://prymost.com.ua/books/${book.slug}`,
       });
 
       const form = document.createElement("form");
@@ -63,14 +62,9 @@ export default function CheckoutForm({ book }: BlogFormProps) {
       setLoading(false);
     }
   };
-  console.log(error);
   return (
     <Form {...form}>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="space-y-4"
-        autoComplete="off"
-      >
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <div className="flex items-center gap-4">
           <p>{book.price} UAH</p>{" "}
           <Button type="submit" disabled={loading}>

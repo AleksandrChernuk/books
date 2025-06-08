@@ -14,24 +14,19 @@ const liqpay = new Liqpay(
 export async function POST(req: Request) {
   const id = randomUUID();
 
-  console.log(req);
-  try {
-    const data = (await req.json()) as IOrderBody;
-    if (!data.result_url) throw new Error("result_url is missing");
-    if (!data.book?.price) throw new Error("book.price is missing");
-    if (!process.env.LIQPAY_PUBLIC_KEY)
-      throw new Error("public key is missing");
-    if (!process.env.LIQPAY_PRIVATE_KEY)
-      throw new Error("private key is missing");
+  console.log("process.env.LIQPAY_PRIVATE_KEY", process.env.LIQPAY_PRIVATE_KEY);
+  console.log("process.env.LIQPAY_PUBLIC_KEY", process.env.LIQPAY_PUBLIC_KEY);
+  const data = (await req.json()) as IOrderBody;
 
+  console.log(data.result_url);
+
+  try {
     await createBookSale({
       bookId: data.book.id,
       format: data.format,
       orderId: id,
       status: "pending",
     });
-
-    console.log(data);
 
     const params = liqpay.cnb_params({
       action: "pay",
@@ -40,7 +35,7 @@ export async function POST(req: Request) {
       description: "Оплата за квитки",
       order_id: id,
       version: "3",
-      result_url: data.result_url,
+      result_url: `${data.result_url}`,
     });
 
     const liqpaydata = Buffer.from(JSON.stringify(params)).toString("base64");

@@ -19,7 +19,6 @@ export async function checkout(body: IOrderBody) {
     if (!response.ok) {
       throw new Error("Checkout failed");
     }
-
     const data = await response.json();
     return data as { data: string; signature: string };
   } catch (error) {
