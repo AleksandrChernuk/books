@@ -1,14 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Header from "@/components/modules/header/header";
-import Footer from "@/components/modules/footer/footer";
-import { Playpen_Sans } from "next/font/google";
-
-const geist = Playpen_Sans({
-  weight: ["300", "400", "500", "600", "700", "800"],
-  subsets: ["emoji", "latin", "latin-ext", "math", "vietnamese"],
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   title:
@@ -41,14 +32,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${geist.className}`} suppressHydrationWarning>
-        <div className="flex flex-col h-dvh">
-          <Header />
-          <main className="flex-1">{children}</main>
-          <Footer />
-        </div>
-      </body>
+    <html lang="en" suppressHydrationWarning>
+      <body suppressHydrationWarning>{children}</body>
     </html>
   );
 }
