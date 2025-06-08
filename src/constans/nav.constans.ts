@@ -20,10 +20,6 @@ export const publicLinks = [
 export const privateLinks = [
   {
     title: "Головна",
-    url: "/",
-  },
-  {
-    title: "Головна",
     url: "/admin",
   },
   {

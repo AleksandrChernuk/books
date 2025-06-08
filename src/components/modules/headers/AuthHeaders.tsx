@@ -25,7 +25,7 @@ export default function AuthHeader() {
             <div className="md:hidden">
               <AuthMobile />
             </div>
-            <Button onClick={handleLogOut}>Logout</Button>
+            <Button onClick={handleLogOut}>Вихід</Button>
           </div>
         </div>
       </Container>

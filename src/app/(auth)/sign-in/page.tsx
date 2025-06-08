@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import Link from "next/link";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -28,17 +27,22 @@ import { PasswordInput } from "@/components/ui/password-input";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/lib/firebase";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { Loader2 } from "lucide-react";
 
 const formSchema = z.object({
-  email: z.string().email({ message: "Invalid email address" }),
+  email: z.string().email({ message: "Некоректний email" }),
   password: z
     .string()
-    .min(6, { message: "Password must be at least 6 characters long" })
-    .regex(/[a-zA-Z0-9]/, { message: "Password must be alphanumeric" }),
+    .min(6, { message: "Пароль має містити мінімум 6 символів" })
+    .regex(/[a-zA-Z0-9]/, {
+      message: "Пароль має бути латинськими літерами та цифрами",
+    }),
 });
 
 export default function SignIn() {
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -48,21 +52,23 @@ export default function SignIn() {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    setIsLoading(true);
     try {
       await signInWithEmailAndPassword(auth, values.email, values.password);
-      toast.success("Successfully signed in!");
+      toast.success("Ви успішно увійшли!");
       router.replace("/admin");
     } catch (error: any) {
-      // Обработка ошибок Firebase Auth
-      let message = "Failed to sign in. Please try again.";
+      let message = "Не вдалося увійти. Спробуйте ще раз.";
       if (error.code === "auth/user-not-found") {
-        message = "No user found with this email.";
+        message = "Користувача з таким email не знайдено.";
       } else if (error.code === "auth/wrong-password") {
-        message = "Incorrect password.";
+        message = "Неправильний пароль.";
       } else if (error.code === "auth/too-many-requests") {
-        message = "Too many login attempts. Please try again later.";
+        message = "Забагато спроб входу. Спробуйте пізніше.";
       }
       toast.error(message);
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -70,9 +76,9 @@ export default function SignIn() {
     <div className="flex flex-col min-h-[50vh] h-full w-full items-center justify-center px-4 ">
       <Card className="mx-auto min-w-md">
         <CardHeader>
-          <CardTitle className="text-2xl">Login</CardTitle>
+          <CardTitle className="text-2xl">Вхід</CardTitle>
           <CardDescription>
-            Enter your email and password to login to your account.
+            Введіть свій email і пароль для входу в акаунт.
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -103,15 +109,7 @@ export default function SignIn() {
                   name="password"
                   render={({ field }) => (
                     <FormItem className="grid gap-2">
-                      <div className="flex justify-between items-center">
-                        <FormLabel htmlFor="password">Password</FormLabel>
-                        <Link
-                          href="#"
-                          className="ml-auto inline-block text-sm underline"
-                        >
-                          Forgot your password?
-                        </Link>
-                      </div>
+                      <FormLabel htmlFor="password">Пароль</FormLabel>
                       <FormControl>
                         <PasswordInput
                           id="password"
@@ -124,8 +122,15 @@ export default function SignIn() {
                     </FormItem>
                   )}
                 />
-                <Button type="submit" className="w-full">
-                  Login
+                <Button type="submit" className="w-full" disabled={isLoading}>
+                  {isLoading ? (
+                    <span className="flex items-center justify-center gap-2">
+                      <Loader2 className="animate-spin w-4 h-4" />{" "}
+                      Завантаження...
+                    </span>
+                  ) : (
+                    "Увійти"
+                  )}
                 </Button>
               </div>
             </form>

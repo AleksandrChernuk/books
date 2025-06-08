@@ -1,3 +1,4 @@
+import { getBookById } from "@/actions/book.actions";
 import { host } from "@/lib/config";
 import { Suspense } from "react";
 
@@ -8,7 +9,7 @@ type Props = {
 };
 async function PaymentStatus({ order_id }: { order_id?: string }) {
   if (!order_id) {
-    return <div>Не передан номер заказа (order_id).</div>;
+    return <div>Не передано номер замовлення (order_id).</div>;
   }
 
   const response = await fetch(
@@ -17,29 +18,36 @@ async function PaymentStatus({ order_id }: { order_id?: string }) {
       cache: "no-store",
     }
   );
+  const { res } = await response.json();
 
-  const { status, bookDownloadUrl } = await response.json();
+  const book = await getBookById(order_id);
 
-  if (status === "paid" || status === "success") {
+  if (res.status === "success") {
     return (
       <div>
-        <h2>Оплата прошла успешно!</h2>
-        <a className="btn" href={bookDownloadUrl} download>
-          Скачать книгу
+        <h2>Оплату успішно здійснено!</h2>
+
+        <a
+          className="border border-slate-400 rounded-md p-2"
+          href={book?.formats[0].url}
+          target="_blank"
+          download
+        >
+          Завантажити книгу
         </a>
       </div>
     );
   }
 
-  if (status === "pending") {
+  if (res.status === "pending") {
     return (
       <div>
-        Оплата ещё обрабатывается. Подождите пару минут и обновите страницу.
+        Оплата ще обробляється. Зачекайте кілька хвилин і оновіть сторінку.
       </div>
     );
   }
 
-  return <div>Ошибка оплаты или заказ не найден.</div>;
+  return <div>Помилка оплати або замовлення не знайдено.</div>;
 }
 
 export default async function SuccessPage({ params }: Props) {
@@ -47,8 +55,9 @@ export default async function SuccessPage({ params }: Props) {
 
   return (
     <div className="container mx-auto py-16">
-      <h1 className="text-2xl mb-8">Проверка оплаты</h1>
-      <Suspense fallback={<div>Загрузка...</div>}>
+      <h1 className="text-2xl mb-8">Перевірка оплати</h1>
+
+      <Suspense fallback={<div>Завантаження...</div>}>
         <PaymentStatus order_id={order_id} />
       </Suspense>
     </div>
