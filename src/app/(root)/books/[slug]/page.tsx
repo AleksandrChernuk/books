@@ -7,7 +7,6 @@ import pl from "@/assets/placeholder.webp";
 import { toBase64 } from "@/helpers/toBase64";
 import { shimmer } from "@/helpers/shimmer";
 import CheckoutForm from "@/components/modules/checkout-form";
-import { Metadata } from "next";
 
 export type Params = Promise<{ slug: string }>;
 
