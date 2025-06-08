@@ -33,8 +33,8 @@ export default function CheckoutForm({ book }: BlogFormProps) {
       const { data, signature } = await checkout({
         book: book,
         format: formData.format,
-        result_url: `http://localhost:3000/books/${book.slug}`,
-        server_url: `http://localhost:3000/api/liqpay-callback`,
+        result_url: `http://prymost.com.ua/books/${book.slug}`,
+        // server_url: `http://localhost:3000/api/liqpay-callback`,
       });
 
       const form = document.createElement("form");

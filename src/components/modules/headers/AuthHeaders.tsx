@@ -2,23 +2,21 @@
 
 import Container from "@/components/shared/Container";
 import NavLinks from "@/components/shared/NavLinks";
-import { Skeleton } from "@/components/ui/skeleton";
 import { privateLinks } from "@/constans/nav.constans";
 // import { UserButton } from "@clerk/nextjs";
-import dynamic from "next/dynamic";
 import React from "react";
 import { AuthMobile } from "../mobile-menu/AuthMobile";
-
-export const ClerkUserButtonNoSSR = dynamic(
-  () => import("@clerk/nextjs").then((mod) => mod.UserButton),
-
-  {
-    ssr: false,
-    loading: () => <Skeleton className="size-7 rounded-full bg-gray-200" />,
-  }
-);
+import { Button } from "@/components/ui/button";
+import { auth } from "@/lib/firebase";
+import { useRouter } from "next/navigation";
 
 export default function AuthHeader() {
+  const router = useRouter();
+  const handleLogOut = async () => {
+    await auth.signOut();
+    router.push("/");
+  };
+
   return (
     <header className="border border-b-zinc-200 shadow-sm">
       <Container>
@@ -28,7 +26,7 @@ export default function AuthHeader() {
             <div className="md:hidden">
               <AuthMobile />
             </div>
-            {/* <UserButton /> */}
+            <Button onClick={handleLogOut}>Logout</Button>
           </div>
         </div>
       </Container>

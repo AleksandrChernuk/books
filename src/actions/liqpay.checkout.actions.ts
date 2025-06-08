@@ -4,7 +4,6 @@ export type IOrderBody = {
   book: Book;
   format: string;
   result_url: string;
-  server_url: string;
 };
 
 export async function checkout(body: IOrderBody) {

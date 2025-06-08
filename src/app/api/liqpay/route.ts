@@ -17,6 +17,12 @@ export async function POST(req: Request) {
   console.log(req);
   try {
     const data = (await req.json()) as IOrderBody;
+    if (!data.result_url) throw new Error("result_url is missing");
+    if (!data.book?.price) throw new Error("book.price is missing");
+    if (!process.env.LIQPAY_PUBLIC_KEY)
+      throw new Error("public key is missing");
+    if (!process.env.LIQPAY_PRIVATE_KEY)
+      throw new Error("private key is missing");
 
     await createBookSale({
       bookId: data.book.id,
@@ -35,7 +41,6 @@ export async function POST(req: Request) {
       order_id: id,
       version: "3",
       result_url: data.result_url,
-      server_url: data.server_url,
     });
 
     const liqpaydata = Buffer.from(JSON.stringify(params)).toString("base64");
