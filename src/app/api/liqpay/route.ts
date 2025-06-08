@@ -13,6 +13,8 @@ const liqpay = new Liqpay(
 
 export async function POST(req: Request) {
   const id = randomUUID();
+
+  console.log(req);
   try {
     const data = (await req.json()) as IOrderBody;
 
