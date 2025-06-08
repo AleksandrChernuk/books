@@ -135,7 +135,7 @@ export default function useBookEditorForm({ book }: Props) {
         toast.success("Book created!");
       }
 
-      router.push("/books");
+      router.push("/admin/books-edit");
     } catch (err: unknown) {
       console.error(err);
       toast.error("Ошибка при сохранении книги.");

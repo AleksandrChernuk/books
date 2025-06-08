@@ -38,7 +38,7 @@ export default function BookCard({ book }: BookCardProps) {
 
   const handleEdit = () => {
     startTransition(() => {
-      router.push(`/books/edit/${book.id}`);
+      router.push(`/admin/books-edit/edit/${book.id}`);
     });
   };
 

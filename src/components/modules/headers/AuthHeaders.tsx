@@ -4,7 +4,7 @@ import Container from "@/components/shared/Container";
 import NavLinks from "@/components/shared/NavLinks";
 import { Skeleton } from "@/components/ui/skeleton";
 import { privateLinks } from "@/constans/nav.constans";
-import { UserButton } from "@clerk/nextjs";
+// import { UserButton } from "@clerk/nextjs";
 import dynamic from "next/dynamic";
 import React from "react";
 import { AuthMobile } from "../mobile-menu/AuthMobile";
@@ -28,7 +28,7 @@ export default function AuthHeader() {
             <div className="md:hidden">
               <AuthMobile />
             </div>
-            <UserButton />
+            {/* <UserButton /> */}
           </div>
         </div>
       </Container>

@@ -8,6 +8,7 @@ import useBookEditorForm from "../hooks/useBookEditorForm";
 import FormatsArray from "./FormatsArray";
 import FileUploadField from "@/components/shared/FileInput";
 import { TextEditorField } from "@/components/shared/TextEditorField";
+import { LoaderCircle } from "lucide-react";
 
 type Props = {
   book?: Book;
@@ -15,11 +16,14 @@ type Props = {
 };
 
 export default function BookForm({ book }: Props) {
-  console.log(Boolean(book?.id));
   const { form, onBookEditorSubmit, isLoading } = useBookEditorForm({ book });
 
   if (isLoading) {
-    return <div>Loading</div>;
+    return (
+      <div className="py-5 flex items-center justify-center min-h-dvh">
+        <LoaderCircle size={40} className="animate-spin" />
+      </div>
+    );
   }
 
   return (

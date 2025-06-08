@@ -4,7 +4,6 @@ import PostCard from "@/components/shared/PostCurd";
 import { Button } from "@/components/ui/button";
 import { BlogPost } from "@/types/post.type";
 import Link from "next/link";
-import { Suspense } from "react";
 
 export default async function PostsPage() {
   const posts: BlogPost[] = await getAllPosts();
@@ -15,18 +14,16 @@ export default async function PostsPage() {
         <div className="flex items-center justify-between mb-4">
           <h1 className="mb-0">Публікації блогу</h1>
           <Button asChild>
-            <Link href="blog/create">Додати</Link>
+            <Link href="/admin/blog-edit/create">Додати</Link>
           </Button>
         </div>
-        <Suspense>
-          <ul className="space-y-2">
-            {posts.map((post) => (
-              <li key={post.id}>
-                <PostCard post={post} />
-              </li>
-            ))}
-          </ul>
-        </Suspense>
+        <ul className="space-y-2">
+          {posts.map((post) => (
+            <li key={post.id}>
+              <PostCard post={post} />
+            </li>
+          ))}
+        </ul>
       </div>
     </Container>
   );

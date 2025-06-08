@@ -13,7 +13,7 @@ export default async function BooksEdit() {
         <div className="flex items-center justify-between mb-4">
           <h1 className="mb-0">Книги</h1>
 
-          <CreateButton href="books/create" />
+          <CreateButton href="/admin/books-edit/create" />
         </div>
         <ul className="space-y-2">
           {books.map((book) => (

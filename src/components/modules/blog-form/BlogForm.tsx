@@ -55,7 +55,6 @@ export default function BlogForm({
     formState: { errors },
   } = form;
 
- 
   const onSubmit = async (data: FormValues) => {
     setIsSubmitting(true);
     setError(null);
@@ -67,7 +66,7 @@ export default function BlogForm({
         await updatePost(id, data);
       }
 
-      router.push("/blog");
+      router.push("/admin/blog-edit");
     } catch (error) {
       const message =
         typeof error === "string"

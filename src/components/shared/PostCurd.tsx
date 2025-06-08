@@ -20,7 +20,7 @@ export default function PostCard({ post }: PostCardProps) {
   const router = useRouter();
 
   const handleEdit = () => {
-    router.push(`blog/post/${post.id}`);
+    router.push(`blog/post-edit/edit/${post.id}`);
   };
 
   return (
