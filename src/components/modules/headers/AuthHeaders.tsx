@@ -4,7 +4,6 @@ import Container from "@/components/shared/Container";
 import NavLinks from "@/components/shared/NavLinks";
 import { privateLinks } from "@/constans/nav.constans";
 // import { UserButton } from "@clerk/nextjs";
-import React from "react";
 import { AuthMobile } from "../mobile-menu/AuthMobile";
 import { Button } from "@/components/ui/button";
 import { auth } from "@/lib/firebase";
