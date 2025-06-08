@@ -22,7 +22,6 @@ type Props = {
 export default async function SlugPage({ params }: Props) {
   const { slug } = await params;
   const book = await getBookBySlug(slug);
-  console.log(slug);
   if (!book) {
     return notFound();
   }

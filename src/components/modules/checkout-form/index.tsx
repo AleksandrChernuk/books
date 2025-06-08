@@ -13,6 +13,7 @@ import {
 import { allFormats } from "@/constans/allFormats";
 import { Book } from "@/types/book.types";
 import { checkout } from "@/actions/liqpay.checkout.actions";
+import { host } from "@/lib/config";
 
 type FormValues = { format: string };
 type BlogFormProps = { book: Book };
@@ -26,14 +27,13 @@ export default function CheckoutForm({ book }: BlogFormProps) {
   });
 
   const { handleSubmit, control } = form;
-
   const onSubmit = async (formData: FormValues) => {
     try {
       setLoading(true);
       const { data, signature } = await checkout({
         book: book,
         format: formData.format,
-        result_url: `https://prymost.com.ua/books/${book.slug}`,
+        result_url: `${host}/success/${book.id}`,
       });
 
       const form = document.createElement("form");
