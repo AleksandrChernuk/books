@@ -12,7 +12,6 @@ import {
 } from "@/components/ui/select";
 import { Book } from "@/types/book.types";
 import { checkout } from "@/actions/liqpay.checkout.actions";
-import { host } from "@/lib/config";
 import { Loader2 } from "lucide-react";
 
 type FormValues = { format: string };
@@ -36,7 +35,7 @@ export default function CheckoutForm({ book, formats }: BlogFormProps) {
       const { data, signature } = await checkout({
         book: book,
         format: formData.format,
-        result_url: `${host}/success`,
+        result_url: `${process.env.NEXT_PUBLIC_URL}/success`,
       });
 
       const form = document.createElement("form");

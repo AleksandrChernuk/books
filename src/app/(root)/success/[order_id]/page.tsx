@@ -1,7 +1,6 @@
 import { bookSaleStatus } from "@/actions/book-sale.actions";
 import { getOrderId } from "@/actions/book.actions";
 import Container from "@/components/shared/Container";
-import { host } from "@/lib/config";
 import { Suspense } from "react";
 
 export type Params = Promise<{ order_id: string }>;
@@ -14,9 +13,12 @@ async function PaymentStatus({ order_id }: { order_id?: string }) {
     return <div>Не передано номер замовлення (order_id).</div>;
   }
 
-  await fetch(`${host}/api/order-status?order_id=${order_id}`, {
-    cache: "no-store",
-  });
+  await fetch(
+    `${process.env.NEXT_PUBLIC_URL}/api/order-status?order_id=${order_id}`,
+    {
+      cache: "no-store",
+    }
+  );
 
   const saleStatus = await bookSaleStatus(order_id);
 
