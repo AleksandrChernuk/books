@@ -10,15 +10,18 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { allFormats } from "@/constans/allFormats";
 import { Book } from "@/types/book.types";
 import { checkout } from "@/actions/liqpay.checkout.actions";
 import { host } from "@/lib/config";
+import { Loader2 } from "lucide-react";
 
 type FormValues = { format: string };
-type BlogFormProps = { book: Book };
+type BlogFormProps = {
+  book: Book;
+  formats: Array<"pdf" | "epub" | "fb2" | "mobi">;
+};
 
-export default function CheckoutForm({ book }: BlogFormProps) {
+export default function CheckoutForm({ book, formats }: BlogFormProps) {
   const [loading, setLoading] = useState(false);
   const [, setError] = useState<string | null>(null);
 
@@ -68,7 +71,13 @@ export default function CheckoutForm({ book }: BlogFormProps) {
         <div className="flex items-center gap-4">
           <p>{book.price} UAH</p>{" "}
           <Button type="submit" disabled={loading}>
-            {loading ? "..." : "Придбати"}
+            {loading ? (
+              <span className="flex items-center justify-center gap-2">
+                <Loader2 className="animate-spin w-4 h-4" /> Завантаження...
+              </span>
+            ) : (
+              "Придбати"
+            )}
           </Button>
         </div>
         <Controller
@@ -86,7 +95,7 @@ export default function CheckoutForm({ book }: BlogFormProps) {
                     <SelectValue placeholder="Оберіть формат" />
                   </SelectTrigger>
                   <SelectContent>
-                    {allFormats.map((e) => (
+                    {formats.map((e) => (
                       <SelectItem key={e} value={e}>
                         {e}
                       </SelectItem>

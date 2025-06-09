@@ -52,7 +52,10 @@ export default async function SlugPage({ params }: Props) {
               />
             </li>
             <li className="flex items-start gap-4">
-              <CheckoutForm book={book} />
+              <CheckoutForm
+                book={book}
+                formats={book.formats.map((e) => e.format)}
+              />
             </li>
           </ul>
           <div

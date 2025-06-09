@@ -27,7 +27,7 @@ export function AuthMobile() {
             <DrawerTitle className="sr-only"></DrawerTitle>
             <DrawerDescription className="sr-only"></DrawerDescription>
           </DrawerHeader>
-          <div className="p-4">
+          <div className="p-4 overflow-x-scroll">
             <NavLinks links={privateLinks} />
           </div>
         </div>

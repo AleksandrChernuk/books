@@ -20,7 +20,7 @@ export default async function PostsPage() {
         <ul className="space-y-2">
           {posts.map((post) => (
             <li key={post.id}>
-              <PostCard post={post} />
+              <PostCard post={post} admin />
             </li>
           ))}
         </ul>

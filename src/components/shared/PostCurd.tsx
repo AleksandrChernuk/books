@@ -11,16 +11,29 @@ import { Button } from "@/components/ui/button";
 import { BlogPost } from "@/types/post.type";
 import { useRouter } from "next/navigation";
 import dayjs from "dayjs";
+import { deletePost } from "@/actions/blog.actions";
+import { useState } from "react";
 
 type PostCardProps = {
   post: BlogPost;
+  admin?: boolean;
 };
 
-export default function PostCard({ post }: PostCardProps) {
+export default function PostCard({ post, admin }: PostCardProps) {
   const router = useRouter();
 
+  const [deleteLoading, setDeleteLoading] = useState(false);
+  const [editLoading, setEditLoading] = useState(false);
+
   const handleEdit = () => {
-    router.push(`blog/post-edit/edit/${post.id}`);
+    router.push(`blog/${post.id}`);
+  };
+
+  const handleDelete = async () => {
+    setDeleteLoading(true);
+    await deletePost(post.id);
+
+    router.refresh();
   };
 
   return (
@@ -37,9 +50,29 @@ export default function PostCard({ post }: PostCardProps) {
             : ""}
         </p>
 
-        <Button onClick={handleEdit} variant="outline">
-          Читати
-        </Button>
+        <div>
+          {admin ? (
+            <div className="flex items-center gap-2">
+              <Button onClick={handleDelete} variant="destructive">
+                {deleteLoading ? "Видалити..." : "Видалити"}
+              </Button>
+              <Button
+                onClick={() => {
+                  setEditLoading(true);
+
+                  router.push(`/admin/blog-edit/edit/${post.id}`);
+                }}
+                variant="outline"
+              >
+                {editLoading ? "Редагувати..." : "Редагувати"}
+              </Button>
+            </div>
+          ) : (
+            <Button onClick={handleEdit} variant="outline">
+              Читати
+            </Button>
+          )}
+        </div>
       </CardFooter>
     </Card>
   );
