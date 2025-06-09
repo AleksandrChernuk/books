@@ -122,13 +122,21 @@ export async function getBookBySlug(slug: string): Promise<Book | null> {
   } as Book;
 }
 
-export async function getOrderId(id: string): Promise<Book | null> {
-  const q = query(collection(firestore, "books"), where("id", "==", id));
+export async function getOrderId(id: string): Promise<TOrder | null> {
+  const q = query(collection(firestore, "sales"), where("orderId", "==", id));
   const querySnapshot = await getDocs(q);
 
   if (querySnapshot.empty) return null;
   const docSnap = querySnapshot.docs[0];
   const data = docSnap.data();
 
-  return data as Book;
+  return data as TOrder;
 }
+
+type TOrder = {
+  bookId: string;
+  format: string;
+  orderId: string;
+  userId?: string | null;
+  status?: "pending" | "paid" | "failed";
+};

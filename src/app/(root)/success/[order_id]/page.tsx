@@ -1,5 +1,5 @@
 import { bookSaleStatus } from "@/actions/book-sale.actions";
-import { getOrderId } from "@/actions/book.actions";
+import { getBookById, getOrderId } from "@/actions/book.actions";
 import Container from "@/components/shared/Container";
 import { Suspense } from "react";
 
@@ -20,18 +20,19 @@ async function PaymentStatus({ order_id }: { order_id?: string }) {
     }
   );
 
-  const saleStatus = await bookSaleStatus(order_id);
+  await bookSaleStatus(order_id);
+  const order = await getOrderId(order_id);
 
-  if (saleStatus?.status === "paid") {
-    const book = await getOrderId(order_id);
-    console.log(book);
+  if (order?.status === "paid") {
+    const book = await getBookById(order.bookId);
+
     return (
       <div className="mt-4 flex items-center justify-between gap-2 flex-wrap">
         <h4 className="">Оплату успішно здійснено!</h4>
 
         <a
           className="border border-slate-400 rounded-md p-2"
-          href={book?.formats[0].url}
+          href={book?.formats.filter((e) => e.format === order.format)[0].url}
           target="_blank"
           download
         >
@@ -41,7 +42,7 @@ async function PaymentStatus({ order_id }: { order_id?: string }) {
     );
   }
 
-  if (saleStatus?.status === "pending") {
+  if (order?.status === "pending") {
     return (
       <div>
         Оплата ще обробляється. Зачекайте кілька хвилин і оновіть сторінку.
