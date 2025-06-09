@@ -121,3 +121,14 @@ export async function getBookBySlug(slug: string): Promise<Book | null> {
     updatedAt: convertTimestampToString(data.updatedAt),
   } as Book;
 }
+
+export async function getOrderId(id: string): Promise<Book | null> {
+  const q = query(collection(firestore, "books"), where("id", "==", id));
+  const querySnapshot = await getDocs(q);
+
+  if (querySnapshot.empty) return null;
+  const docSnap = querySnapshot.docs[0];
+  const data = docSnap.data();
+
+  return data as Book;
+}

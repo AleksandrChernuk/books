@@ -33,7 +33,7 @@ export default function CheckoutForm({ book }: BlogFormProps) {
       const { data, signature } = await checkout({
         book: book,
         format: formData.format,
-        result_url: `${host}/success/${book.id}`,
+        result_url: `${host}/success`,
       });
 
       const form = document.createElement("form");

@@ -1,4 +1,5 @@
-import { getBookById } from "@/actions/book.actions";
+import { bookSaleStatus } from "@/actions/book-sale.actions";
+import { getOrderId } from "@/actions/book.actions";
 import { host } from "@/lib/config";
 import { Suspense } from "react";
 
@@ -12,17 +13,15 @@ async function PaymentStatus({ order_id }: { order_id?: string }) {
     return <div>Не передано номер замовлення (order_id).</div>;
   }
 
-  const response = await fetch(
-    `${host}/api/order-status?order_id=${order_id}`,
-    {
-      cache: "no-store",
-    }
-  );
-  const { res } = await response.json();
+  await fetch(`${host}/api/order-status?order_id=${order_id}`, {
+    cache: "no-store",
+  });
 
-  const book = await getBookById(order_id);
+  const saleStatus = await bookSaleStatus(order_id);
 
-  if (res.status === "success") {
+  if (saleStatus?.status === "paid") {
+    const book = await getOrderId(order_id);
+    console.log(book);
     return (
       <div>
         <h2>Оплату успішно здійснено!</h2>
@@ -39,7 +38,7 @@ async function PaymentStatus({ order_id }: { order_id?: string }) {
     );
   }
 
-  if (res.status === "pending") {
+  if (saleStatus?.status === "pending") {
     return (
       <div>
         Оплата ще обробляється. Зачекайте кілька хвилин і оновіть сторінку.

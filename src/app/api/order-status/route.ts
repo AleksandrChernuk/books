@@ -3,6 +3,7 @@
 import { NextRequest, NextResponse } from "next/server";
 // @ts-ignore
 import * as Liqpay from "liqpay-sdk-nodejs";
+import { updateBookSaleStatus } from "@/actions/book-sale.actions";
 
 export interface PaymentData {
   action: string;
@@ -72,6 +73,24 @@ export async function GET(req: NextRequest) {
       return data;
     }
   );
+
+  if (res.status === "success") {
+    try {
+      await updateBookSaleStatus(order_id, "paid");
+    } catch (error) {
+      console.log(error);
+      return NextResponse.json({ status: "error" }, { status: 400 });
+    }
+  }
+
+  if (res.status !== "success") {
+    try {
+      await updateBookSaleStatus(order_id, "failed");
+    } catch (error) {
+      console.log(error);
+      return NextResponse.json({ status: "error" }, { status: 400 });
+    }
+  }
 
   return NextResponse.json({
     res,
