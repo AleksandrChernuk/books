@@ -32,12 +32,14 @@ export async function getAllBooks(): Promise<Book[]> {
       title: data.title,
       slug: data.slug,
       price: data.price,
+      paperFormat: data.paperFormat,
+      price_paper: data.price_paper,
+
       shortDescription: data.shortDescription,
       fullDescription: data.fullDescription,
       formats: (data.formats || []).map((f: any) => ({
         id: f.id,
         format: f.format,
-        url: f.url,
         filename: f.filename,
       })) as BookFormat[],
       coverImageUrl: data.coverImageUrl,
@@ -58,11 +60,13 @@ export async function getBookById(id: string): Promise<Book | null> {
     title: data.title,
     slug: data.slug,
     price: data.price,
+    price_paper: data.price_paper,
+
+    paperFormat: data.paperFormat,
     fullDescription: data.fullDescription,
     formats: (data.formats || []).map((f: any) => ({
       id: f.id,
       format: f.format,
-      url: f.url,
       filename: f.filename,
     })) as BookFormat[],
     coverImageUrl: data.coverImageUrl,
@@ -116,7 +120,20 @@ export async function getBookBySlug(slug: string): Promise<Book | null> {
 
   return {
     id: docSnap.id,
-    ...data,
+    title: data.title,
+    slug: data.slug,
+    price: data.price,
+    price_paper: data.price_paper,
+
+    paperFormat: data.paperFormat,
+    shortDescription: data.shortDescription,
+    fullDescription: data.fullDescription,
+    formats: (data.formats || []).map((f: any) => ({
+      id: f.id,
+      format: f.format,
+      filename: f.filename,
+    })),
+    coverImageUrl: data.coverImageUrl,
     createdAt: convertTimestampToString(data.createdAt),
     updatedAt: convertTimestampToString(data.updatedAt),
   } as Book;
@@ -136,7 +153,12 @@ export async function getOrderId(id: string): Promise<TOrder | null> {
 type TOrder = {
   bookId: string;
   format: string;
+  paperFormat: boolean;
+  email?: string;
+  phone?: string;
+  adress?: string;
+  firstName?: string;
+  lastName?: string;
   orderId: string;
-  userId?: string | null;
   status?: "pending" | "paid" | "failed";
 };

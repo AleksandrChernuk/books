@@ -32,12 +32,17 @@ export default function BookForm({ book }: Props) {
         onSubmit={form.handleSubmit(onBookEditorSubmit)}
         className="space-y-8 "
       >
-        <div className="flex gap-4">
+        <div className="flex flex-col gap-4">
           <TextField name="title" label="Назва" />
           <TextField
             name="price"
             inputProps={{ type: "number" }}
-            label="Ціна"
+            label="Ціна електронної кники"
+          />
+          <TextField
+            name="price_paper"
+            inputProps={{ type: "number" }}
+            label="Ціна паперової кники"
           />
         </div>
         <div className="grid grid-cols-2">
@@ -53,7 +58,7 @@ export default function BookForm({ book }: Props) {
 
         <div className="flex justify-end">
           <Button variant="default" disabled={isLoading}>
-            {book?.id ? "Update" : "Create"}
+            {book?.id ? "Оновити" : "Додати"}
           </Button>
         </div>
       </form>

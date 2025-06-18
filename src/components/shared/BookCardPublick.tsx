@@ -41,12 +41,6 @@ export default function BookCardPublick({ book }: BookCardProps) {
           }}
         />
       </li>
-      <ul className="p-4">
-        <ul className="flex flex-col items-start">
-          <li className="mb-2">{book.title}</li>
-          <li className="p-1 rounded-md bg-slate-200 flex">{book.price} UAH</li>
-        </ul>
-      </ul>
     </ul>
   );
 }

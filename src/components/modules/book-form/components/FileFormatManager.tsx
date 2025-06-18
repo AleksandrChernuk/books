@@ -8,7 +8,6 @@ import { Input } from "@/components/ui/input";
 
 import { Button } from "@/components/ui/button";
 import { Trash2, PlusCircle, Paperclip } from "lucide-react";
-import { v4 as uuidv4 } from "uuid";
 import {
   type Control,
   type FieldArrayWithId,
@@ -19,6 +18,9 @@ import {
   useFormContext,
 } from "react-hook-form";
 import { BookFormData } from "@/schema/admin.schema";
+import { nanoid } from "nanoid";
+import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
 
 interface FileFormatManagerProps {
   control: Control<BookFormData>;
@@ -45,7 +47,7 @@ export default function FileFormatManager({
 
   const addFormat = () => {
     append({
-      id: uuidv4(),
+      id: nanoid(),
       format: availableFormats[0],
       filename: "",
       file: undefined,
@@ -53,8 +55,39 @@ export default function FileFormatManager({
   };
 
   return (
-    <div className="flex flex-col  space-y-2">
+    <div className="flex flex-col space-y-2">
       <span className="text-lg font-medium">Формати</span>
+      <div>
+        <FormField
+          control={control}
+          name="paperFormat"
+          render={({ field }) => (
+            <FormItem>
+              <FormControl>
+                <Label className="hover:bg-accent/50 flex items-start gap-3 rounded-lg border p-3 has-[[aria-checked=true]]:border-blue-600 has-[[aria-checked=true]]:bg-blue-50 dark:has-[[aria-checked=true]]:border-blue-900 dark:has-[[aria-checked=true]]:bg-blue-950">
+                  <Checkbox
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                    id="paperFormat"
+                    defaultChecked
+                    className="data-[state=checked]:border-blue-600 data-[state=checked]:bg-blue-600 data-[state=checked]:text-white dark:data-[state=checked]:border-blue-700 dark:data-[state=checked]:bg-blue-700"
+                  />
+                  <div className="grid gap-1.5 font-normal">
+                    <p className="text-sm leading-none font-medium">
+                      Додати паперову версію книги
+                    </p>
+                    <p className="text-muted-foreground text-sm">
+                      Дозволити покупцям замовляти друкований варіант із
+                      доставкою
+                    </p>
+                  </div>
+                </Label>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+      </div>
       {fields.map((item, index) => (
         <div
           key={item.id}

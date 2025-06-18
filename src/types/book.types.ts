@@ -9,12 +9,14 @@ export type Book = {
   id: string;
   title: string;
   slug: string;
-  price: number;
+  price?: number;
+  price_paper?: number;
   fullDescription: string;
   formats: BookFormat[];
   coverImageUrl?: string;
   createdAt: string;
   updatedAt: string;
+  paperFormat?: boolean;
 };
 
 export type BookFormatClientData = {

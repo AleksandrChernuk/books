@@ -19,8 +19,8 @@ export const publicLinks = [
 
 export const privateLinks = [
   {
-    title: "Головна",
-    url: "/admin",
+    title: "На сайт",
+    url: "/",
   },
   {
     title: "Публікації",

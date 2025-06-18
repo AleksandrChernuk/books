@@ -17,6 +17,7 @@ import { deleteFileFromStorage } from "@/lib/firebase-upload";
 import slugify from "slugify";
 import { useEffect, useRef, useState } from "react";
 import { BookFormData, BookFormSchema } from "@/schema/admin.schema";
+import { nanoid } from "nanoid";
 
 type Props = { book?: Book };
 
@@ -29,16 +30,20 @@ export default function useBookEditorForm({ book }: Props) {
     ? {
         title: book.title,
         price: book.price,
+        price_paper: book.price_paper,
         fullDescription: book.fullDescription,
         formats: book.formats.map((f) => ({ ...f, file: undefined })),
+        paperFormat: book.paperFormat || false,
         coverImageUrl: book.coverImageUrl ?? "",
       }
     : {
         title: "",
         price: 0,
+        price_paper: 0,
         fullDescription: "<p></p>",
+        paperFormat: false,
         formats: [
-          { id: uuidv4(), format: "pdf", filename: "", file: undefined },
+          { id: nanoid(), format: "pdf", filename: "", file: undefined },
         ],
         coverImageUrl: "",
       };
@@ -57,16 +62,28 @@ export default function useBookEditorForm({ book }: Props) {
     }
     // eslint-disable-next-line
   }, [book]);
-
   const onBookEditorSubmit = async (values: BookFormData) => {
     setIsLoading(true);
+
     try {
       const storage = getStorage();
       const isEdit = Boolean(book?.id);
       const newId = isEdit ? book!.id : uuidv4();
 
+      // ✅ Проверка: если не бумажная книга, то должен быть хотя бы один формат
+      if (
+        !values.paperFormat &&
+        (!values.formats || values.formats.length === 0)
+      ) {
+        toast.error("Додайте хоча б один електронний формат книги.");
+        return;
+      }
+
+      const safeFormats = values.formats ?? [];
+
+      // ✅ Удаление старых форматов, если редактируем
       if (isEdit) {
-        const newIds = new Set(values.formats.map((f) => f.id));
+        const newIds = new Set(safeFormats.map((f) => f.id));
         for (const old of prevFormats.current) {
           if (!newIds.has(old.id) && old.url) {
             await deleteFileFromStorage(old.url);
@@ -74,11 +91,13 @@ export default function useBookEditorForm({ book }: Props) {
         }
       }
 
+      // ✅ Загрузка и сбор новых форматов
       const formats: BookFormat[] = await Promise.all(
-        values.formats.map(async (f) => {
+        safeFormats.map(async (f) => {
           if (f.file instanceof File) {
             const prev = book?.formats.find((x) => x.id === f.id);
             if (prev?.url) await deleteFileFromStorage(prev.url);
+
             const ext = f.file.name.split(".").pop()!;
             const ref = storageRef(
               storage,
@@ -88,6 +107,7 @@ export default function useBookEditorForm({ book }: Props) {
             const url = await getDownloadURL(ref);
             return { id: f.id, format: f.format, filename: f.file.name, url };
           }
+
           return {
             id: f.id,
             format: f.format,
@@ -97,13 +117,13 @@ export default function useBookEditorForm({ book }: Props) {
         })
       );
 
+      // ✅ Обработка обложки
       let coverUrl = "";
 
       if (!values.coverImageUrl) {
         if (book?.coverImageUrl) {
           await deleteFileFromStorage(book.coverImageUrl);
         }
-        coverUrl = "";
       } else if (values.coverImageUrl instanceof File) {
         if (book?.coverImageUrl) {
           await deleteFileFromStorage(book.coverImageUrl);
@@ -117,28 +137,31 @@ export default function useBookEditorForm({ book }: Props) {
       }
 
       const slug = slugify(values.title, { lower: true, strict: true });
+
       const payload = {
         id: newId,
         title: values.title,
         slug,
         price: values.price,
+        price_paper: values.price_paper,
         fullDescription: values.fullDescription,
         formats,
+        paperFormat: values.paperFormat,
         coverImageUrl: coverUrl,
       };
 
       if (isEdit) {
         await updateBook(newId, payload);
-        toast.success("Book updated!");
+        toast.success("Книгу оновлено!");
       } else {
         await createBook(payload);
-        toast.success("Book created!");
+        toast.success("Книгу створено!");
       }
 
       router.push("/admin/books-edit");
-    } catch (err: unknown) {
+    } catch (err) {
       console.error(err);
-      toast.error("Ошибка при сохранении книги.");
+      toast.error("Помилка при збереженні книги.");
     } finally {
       setIsLoading(false);
     }

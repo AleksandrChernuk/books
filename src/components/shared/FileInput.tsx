@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/form";
 import { CloudUpload, X } from "lucide-react";
 import Image from "next/image";
+import { Button } from "../ui/button";
 
 type Props = {
   name: string;
@@ -89,21 +90,19 @@ export default function FileUploadField({ name }: Props) {
             <div>
               {imageUrl && (
                 <div className="flex items-center gap-2 my-2 justify-between p-1 rounded-xl border border-slate-500">
-                  <Image
-                    src={imageUrl}
-                    alt="Cover Preview"
-                    width={56}
-                    height={56}
-                    className="rounded border object-cover mb-0"
-                  />
-                  <span className="text-xs truncate max-w-[120px]">
-                    {watchedValue instanceof File
-                      ? watchedValue.name
-                      : typeof watchedValue === "string"
-                      ? watchedValue.split("/").pop()
-                      : ""}
-                  </span>
-                  <button
+                  <div>
+                    <Image
+                      src={imageUrl}
+                      alt="Cover Preview"
+                      width={56}
+                      height={56}
+                      className="rounded border object-cover mb-0"
+                    />
+                  </div>
+
+                  <Button
+                    variant={"outline"}
+                    size={"icon"}
                     type="button"
                     className="ml-2 text-destructive hover:bg-muted/70 p-1 rounded-full"
                     onClick={() => {
@@ -115,7 +114,7 @@ export default function FileUploadField({ name }: Props) {
                     }}
                   >
                     <X className="w-4 h-4" />
-                  </button>
+                  </Button>
                 </div>
               )}
             </div>

@@ -11,7 +11,7 @@ export default async function BooksPage() {
         <div className="flex items-center justify-between mb-4">
           <h1 className="mb-0">Книги</h1>
         </div>
-        <ul className="space-y-2">
+        <ul className="flex items-start gap-4 flex-wrap">
           {books.map((book) => (
             <li key={book.id}>
               <BookCardPublick book={book} />

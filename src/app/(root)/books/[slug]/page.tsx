@@ -33,12 +33,11 @@ export default async function SlugPage({ params }: Props) {
   return (
     <Container>
       <div className="py-10">
-        <div className="mb-8">
+        <div className="mb-4">
           <BackBtn />
         </div>
 
         <div>
-          <h1 className="mb-10">{book.title}</h1>
           <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-10 ">
             <li className="relative min-h-80">
               <Image
@@ -51,11 +50,18 @@ export default async function SlugPage({ params }: Props) {
                 )}`}
               />
             </li>
-            <li className="flex items-start gap-4">
-              <CheckoutForm
-                book={book}
-                formats={book.formats.map((e) => e.format)}
-              />
+            <li>
+              <ul className="flex flex-col">
+                <li>
+                  <h1>{book.title}</h1>
+                </li>
+                <li className="w-fit">
+                  <CheckoutForm
+                    book={book}
+                    formats={book.formats.map((e) => e.format)}
+                  />
+                </li>
+              </ul>
             </li>
           </ul>
           <div

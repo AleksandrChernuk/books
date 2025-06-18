@@ -15,7 +15,7 @@ export default async function BooksEdit() {
 
           <CreateButton href="/admin/books-edit/create" />
         </div>
-        <ul className="space-y-2">
+        <ul className="flex items-start gap-4 flex-wrap">
           {books.map((book) => (
             <li key={book.id}>
               <BookCard book={book} />

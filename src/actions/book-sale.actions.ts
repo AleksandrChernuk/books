@@ -15,12 +15,20 @@ export async function createBookSale(data: {
   bookId: string;
   format: string;
   orderId: string;
-  userId?: string | null;
+  type: "ebook" | "paper";
+  price: number;
   status?: "pending" | "paid" | "failed";
+  firstName?: string;
+  lastName?: string;
+  phone?: string;
+  address?: string;
+  email?: string;
+  invoiceId?: string;
 }) {
   return await addDoc(collection(firestore, "sales"), {
     ...data,
     status: data.status || "pending",
+    createdAt: new Date().toISOString(),
   });
 }
 

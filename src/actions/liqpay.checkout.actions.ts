@@ -1,26 +1,34 @@
-import { Book } from "@/types/book.types";
-
 export type IOrderBody = {
-  book: Book;
-  format: string;
+  bookId: string;
+  format?: string;
+  type: "ebook" | "paper";
   result_url: string;
+  price: number;
+  firstName?: string;
+  lastName?: string;
+  phone?: string;
+  address?: string;
+  email?: string;
 };
 
-export async function checkout(body: IOrderBody) {
+type CheckoutResponse = { url: string };
+
+export async function checkout(body: IOrderBody): Promise<CheckoutResponse> {
+  console.log(body);
   try {
-    const response = await fetch(`/api/liqpay`, {
+    const response = await fetch(`/api/monopay`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
     });
 
+    console.log(response);
     if (!response.ok) {
       throw new Error("Checkout failed");
     }
+
     const data = await response.json();
-    return data as { data: string; signature: string };
+    return data;
   } catch (error) {
     throw error;
   }

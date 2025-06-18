@@ -63,12 +63,7 @@ export default function BookCard({ book }: BookCardProps) {
         />
       </li>
       <ul className="p-4">
-        <ul className="flex flex-col items-start">
-          <li className="mb-2">{book.title}</li>
-          <li className="p-1 rounded-md bg-slate-200 flex">{book.price} UAH</li>
-        </ul>
-
-        <li className="flex justify-end gap-2">
+        <li className="flex justify-end gap-2 mt-4">
           <Button
             variant="outline"
             size="icon"
@@ -81,7 +76,12 @@ export default function BookCard({ book }: BookCardProps) {
               <Trash size={24} className="stroke-red-500" />
             )}
           </Button>
-          <Button onClick={handleEdit} disabled={isPending} variant="default">
+          <Button
+            onClick={handleEdit}
+            disabled={isPending}
+            variant="default"
+            size={"icon"}
+          >
             {isPending ? (
               <Loader className="animate-spin" />
             ) : (
