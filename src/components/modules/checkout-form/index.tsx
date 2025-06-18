@@ -117,7 +117,7 @@ export default function CheckoutForm({ book, formats }: CheckoutFormProps) {
         bookId: book.id,
         format: data.format,
         type: data.type,
-        result_url: `http://localhost:3000/success`,
+        result_url: `https://prymost.com.ua/success`,
         price,
       };
 
