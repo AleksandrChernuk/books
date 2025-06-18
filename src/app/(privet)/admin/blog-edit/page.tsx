@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { getAllPosts } from "@/actions/blog.actions";
 import Container from "@/components/shared/Container";
 import PostCard from "@/components/shared/PostCurd";

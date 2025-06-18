@@ -1,10 +1,10 @@
 import Footer from "@/components/modules/footer/footer";
 import MainHeader from "@/components/modules/headers/MainHeader";
-import { Playpen_Sans } from "next/font/google";
+import { Montserrat } from "next/font/google";
 
-const geist = Playpen_Sans({
+const geist = Montserrat({
   weight: ["300", "400", "500", "600", "700", "800"],
-  subsets: ["emoji", "latin", "latin-ext", "math", "vietnamese"],
+  subsets: ["latin", "latin-ext", "vietnamese"],
   display: "swap",
 });
 
