@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { getAllPosts, getPostById } from "@/actions/blog.actions";
 import BackBtn from "@/components/shared/BackBtn";
 import Container from "@/components/shared/Container";

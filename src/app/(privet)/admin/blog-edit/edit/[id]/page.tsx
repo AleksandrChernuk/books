@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { getPostById } from "@/actions/blog.actions";
 import BackBtn from "@/components/shared/BackBtn";
 import BlogForm from "@/components/modules/blog-form/BlogForm";

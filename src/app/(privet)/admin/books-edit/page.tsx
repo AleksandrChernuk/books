@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { getAllBooks } from "@/actions/book.actions";
 import BookCard from "@/components/shared/BookCard";
 import Container from "@/components/shared/Container";

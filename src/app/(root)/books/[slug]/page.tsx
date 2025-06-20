@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { getAllBooks, getBookBySlug } from "@/actions/book.actions";
 import BackBtn from "@/components/shared/BackBtn";
 import Container from "@/components/shared/Container";

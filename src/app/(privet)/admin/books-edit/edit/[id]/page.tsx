@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { getAllBooks, getBookById } from "@/actions/book.actions";
 import { BookFormNoSSR } from "@/components/modules/book-form";
 import BackBtn from "@/components/shared/BackBtn";
