@@ -17,11 +17,13 @@ import { createPost, updatePost } from "@/actions/blog.actions";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { BlogPost } from "@/types/post.type";
+import slugify from "slugify";
 
 type FormValues = {
   title: string;
   content: string;
   description: string;
+  sorting: number;
 };
 
 type BlogFormProps = {
@@ -46,6 +48,7 @@ export default function BlogForm({
       title: initialData?.title || "",
       description: initialData?.description || "",
       content: initialData?.content || "",
+      sorting: initialData?.sorting || 0,
     },
   });
 
@@ -58,12 +61,13 @@ export default function BlogForm({
   const onSubmit = async (data: FormValues) => {
     setIsSubmitting(true);
     setError(null);
+    const slug = slugify(data.title, { lower: true, strict: true });
 
     try {
       if (typSubmit === "create") {
-        await createPost(data);
+        await createPost({ ...data, slug });
       } else if (typSubmit === "update" && id) {
-        await updatePost(id, data);
+        await updatePost(id, { ...data, slug });
       }
 
       router.push("/admin/blog-edit");
@@ -87,27 +91,50 @@ export default function BlogForm({
         className="space-y-4"
         autoComplete="off"
       >
-        <Controller
-          name="title"
-          control={control}
-          render={({ field }) => {
-            const errorId = "title-error";
-            return (
-              <FormItem className="grid gap-2">
-                <FormLabel htmlFor="title">Заголовок</FormLabel>
-                <FormControl>
-                  <Input
-                    {...field}
-                    id="title"
-                    aria-invalid={!!errors.title}
-                    aria-describedby={errors.title ? errorId : undefined}
-                  />
-                </FormControl>
-                <FormMessage id={errorId} />
-              </FormItem>
-            );
-          }}
-        />
+        <div className="grid grid-cols-3 gap-4">
+          <Controller
+            name="title"
+            control={control}
+            render={({ field }) => {
+              const errorId = "title-error";
+              return (
+                <FormItem className="grid gap-2 col-span-2">
+                  <FormLabel htmlFor="title">Заголовок</FormLabel>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      id="title"
+                      aria-invalid={!!errors.title}
+                      aria-describedby={errors.title ? errorId : undefined}
+                    />
+                  </FormControl>
+                  <FormMessage id={errorId} />
+                </FormItem>
+              );
+            }}
+          />
+          <Controller
+            name="sorting"
+            control={control}
+            render={({ field }) => {
+              const errorId = "title-error";
+              return (
+                <FormItem className="grid gap-2 ">
+                  <FormLabel htmlFor="title">Порядок сортування</FormLabel>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      type="number"
+                      id="sorting"
+                      aria-invalid={!!errors.title}
+                      aria-describedby={errors.title ? errorId : undefined}
+                    />
+                  </FormControl>
+                </FormItem>
+              );
+            }}
+          />
+        </div>
 
         <Controller
           name="description"

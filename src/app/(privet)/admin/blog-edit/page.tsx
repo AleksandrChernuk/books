@@ -5,10 +5,14 @@ import PostCard from "@/components/shared/PostCurd";
 import { Button } from "@/components/ui/button";
 import { BlogPost } from "@/types/post.type";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 
 export default async function PostsPage() {
   const posts: BlogPost[] = await getAllPosts();
 
+  if (!posts) {
+    return notFound();
+  }
   return (
     <Container>
       <div className="py-10">

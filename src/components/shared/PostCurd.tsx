@@ -26,9 +26,8 @@ export default function PostCard({ post, admin }: PostCardProps) {
   const [editLoading, setEditLoading] = useState(false);
 
   const handleEdit = () => {
-    router.push(`blog/${post.id}`);
+    router.push(`blog/${post.slug}`);
   };
-
   const handleDelete = async () => {
     setDeleteLoading(true);
     await deletePost(post.id);

@@ -1,22 +1,30 @@
 export const dynamic = "force-dynamic";
 
-import { getAllPosts, getPostById } from "@/actions/blog.actions";
+import { getAllPosts, getPostBySlug } from "@/actions/blog.actions";
 import BackBtn from "@/components/shared/BackBtn";
 import Container from "@/components/shared/Container";
 import Wrapper from "@/components/shared/Wrapper";
+import { notFound } from "next/navigation";
+
+export type Params = Promise<{ slug: string }>;
 
 export async function generateStaticParams() {
-  const books = await getAllPosts();
-  return books.map((post) => ({ id: post.id }));
+  const posts = await getAllPosts();
+  return posts.map((post) => ({ slug: post.slug }));
 }
 
-export default async function BlogPostPage({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
-  const { id } = await params;
-  const post = await getPostById(id);
+type Props = {
+  params: Params;
+};
+
+export default async function BlogPostPage({ params }: Props) {
+  const { slug } = await params;
+  console.log(slug);
+  const post = await getPostBySlug(slug);
+
+  if (!post) {
+    return notFound();
+  }
 
   return (
     <section>
@@ -26,6 +34,7 @@ export default async function BlogPostPage({
             <BackBtn />
           </div>
           <div>
+            <h1 className="text-center">{post.title}</h1>
             <div
               className="prose space-y-4"
               dangerouslySetInnerHTML={{ __html: post?.content || "" }}

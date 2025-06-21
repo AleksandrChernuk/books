@@ -20,11 +20,11 @@ export async function POST(req: Request) {
       orderId,
       status: "pending",
       price: data.price,
-      firstName: data.firstName || "",
-      lastName: data.lastName || "",
-      phone: data.phone || "",
-      address: data.address || "",
-      email: data.email || "",
+      ...(data.firstName && { firstName: data.firstName }),
+      ...(data.lastName && { lastName: data.lastName }),
+      ...(data.phone && { phone: data.phone }),
+      ...(data.address && { address: data.address }),
+      ...(data.email && { email: data.email }),
     });
     const orderData = JSON.stringify({
       amount: data.price * 100,
@@ -57,7 +57,6 @@ export async function POST(req: Request) {
           res.on("end", () => {
             try {
               const parsed = JSON.parse(body);
-              console.log("parsed", parsed);
               if (parsed.pageUrl) {
                 resolve({ invoiceUrl: parsed.pageUrl });
               } else {

@@ -18,7 +18,7 @@ export default async function BlogPostPage(props: {
 
   return (
     <Container>
-      <div className="py-10">
+      <div className="py-4">
         <div className="mb-4">
           <BackBtn />
         </div>

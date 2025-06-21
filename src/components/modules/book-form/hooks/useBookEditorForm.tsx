@@ -81,7 +81,6 @@ export default function useBookEditorForm({ book }: Props) {
 
       const safeFormats = values.formats ?? [];
 
-      // ✅ Удаление старых форматов, если редактируем
       if (isEdit) {
         const newIds = new Set(safeFormats.map((f) => f.id));
         for (const old of prevFormats.current) {
@@ -91,7 +90,6 @@ export default function useBookEditorForm({ book }: Props) {
         }
       }
 
-      // ✅ Загрузка и сбор новых форматов
       const formats: BookFormat[] = await Promise.all(
         safeFormats.map(async (f) => {
           if (f.file instanceof File) {

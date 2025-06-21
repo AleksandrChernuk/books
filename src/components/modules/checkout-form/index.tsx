@@ -87,15 +87,15 @@ export default function CheckoutForm({ book, formats }: CheckoutFormProps) {
     defaultValues: book.paperFormat
       ? {
           type: "paper",
-          format: formats[0],
           firstName: "",
           lastName: "",
           phone: "",
           address: "",
+          format: "pdf",
         }
       : {
           type: "ebook",
-          format: formats[0],
+          format: "pdf",
           email: "",
         },
   });
@@ -137,7 +137,6 @@ export default function CheckoutForm({ book, formats }: CheckoutFormProps) {
           address: data.address,
         });
       }
-
       window.location.href = response.url;
     } catch (err) {
       console.error("Checkout error:", err);

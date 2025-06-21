@@ -50,6 +50,7 @@ export default async function SlugPage({ params }: Props) {
                 placeholder={`data:image/svg+xml;base64,${toBase64(
                   shimmer(200, 320)
                 )}`}
+                style={{ height: "auto" }}
               />
             </li>
             <li>

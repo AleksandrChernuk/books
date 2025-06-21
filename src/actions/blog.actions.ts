@@ -5,7 +5,6 @@
 import { firestore } from "@/lib/firebase";
 import { BlogPost } from "@/types/post.type";
 import {
-  collection,
   addDoc,
   getDocs,
   getDoc,
@@ -13,6 +12,9 @@ import {
   deleteDoc,
   doc,
   serverTimestamp,
+  collection,
+  query,
+  where,
 } from "firebase/firestore";
 
 const postsCollection = collection(firestore, "posts");
@@ -43,6 +45,8 @@ export async function getAllPosts(): Promise<BlogPost[]> {
       title: data.title,
       description: data.description,
       content: data.content,
+      slug: data.slug,
+      sorting: data.sorting,
       createdAt: convertTimestampToString(data.createdAt),
       updatedAt: convertTimestampToString(data.updatedAt),
     };
@@ -59,6 +63,8 @@ export async function getPostById(id: string): Promise<BlogPost | null> {
       title: data.title,
       description: data.description,
       content: data.content,
+      slug: data.slug,
+      sorting: data.sorting,
       createdAt: convertTimestampToString(data.createdAt),
       updatedAt: convertTimestampToString(data.updatedAt),
     };
@@ -66,8 +72,21 @@ export async function getPostById(id: string): Promise<BlogPost | null> {
   return null;
 }
 
+export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
+  const q = query(collection(firestore, "posts"), where("slug", "==", slug));
+  const querySnapshot = await getDocs(q);
+
+  if (querySnapshot.empty) return null;
+
+  const docSnap = querySnapshot.docs[0];
+  const data = docSnap.data() as BlogPost;
+
+  return data ?? null;
+}
+
 export async function updatePost(id: string, data: Partial<BlogPost>) {
   const docRef = doc(firestore, "posts", id);
+  console.log(data);
   await updateDoc(docRef, {
     ...data,
     updatedAt: serverTimestamp(),
