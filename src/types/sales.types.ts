@@ -1,7 +1,11 @@
 export type TSales = {
   bookId: string;
+  bookName: string;
   format: string;
   orderId: string;
-  userId?: string | null;
-  status?: "pending" | "paid" | "failed";
+  price: number;
+  status: "pending" | "paid" | "failed";
+  type: "ebook" | "paper";
+  invoiceId: string;
+  email?: string;
 };

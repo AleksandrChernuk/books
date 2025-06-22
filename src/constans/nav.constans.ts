@@ -43,7 +43,7 @@ export const socialLinks = [
   },
   {
     title: "linkedin",
-    url: "https://www.linkedin.com/in/%D0%B2%D0%B0%D0%BB%D0%B5%D1%80%D0%B8%D0%B9-%D0%BF%D1%80%D0%B8%D0%BC%D0%BE%D1%81%D1%82-a412a950/",
+    url: "https://www.linkedin.com/in/valerii-prymost-a3a05545/",
   },
 ];
 

@@ -5,7 +5,15 @@ import BookCardPublick from "@/components/shared/BookCardPublick";
 import Container from "@/components/shared/Container";
 import Wrapper from "@/components/shared/Wrapper";
 import { Book } from "@/types/book.types";
+import { Metadata } from "next";
 import { notFound } from "next/navigation";
+
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    title: `Книга Валерія Примоста`,
+    description: "Детальний опис книги, автор — Валерій Примост.",
+  };
+}
 
 export default async function Books() {
   const books: Book[] = await getAllBooks();

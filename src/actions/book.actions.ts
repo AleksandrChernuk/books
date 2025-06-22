@@ -68,6 +68,7 @@ export async function getBookById(id: string): Promise<Book | null> {
       id: f.id,
       format: f.format,
       filename: f.filename,
+      url: f.url,
     })) as BookFormat[],
     coverImageUrl: data.coverImageUrl,
     createdAt: convertTimestampToString(data.createdAt),

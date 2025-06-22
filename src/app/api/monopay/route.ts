@@ -3,29 +3,16 @@
 import { NextResponse } from "next/server";
 import { IOrderBody } from "@/actions/liqpay.checkout.actions";
 import { createBookSale } from "@/actions/book-sale.actions";
-import { v4 as uuidv4 } from "uuid";
 import https from "https";
+import { nanoid } from "nanoid";
 
 const key = process.env.MONO_KEY;
 
 export async function POST(req: Request) {
   const data = (await req.json()) as IOrderBody;
-  const orderId = uuidv4();
+  const orderId = nanoid();
 
   try {
-    await createBookSale({
-      type: data.type,
-      bookId: data.bookId,
-      format: data.format!,
-      orderId,
-      status: "pending",
-      price: data.price,
-      ...(data.firstName && { firstName: data.firstName }),
-      ...(data.lastName && { lastName: data.lastName }),
-      ...(data.phone && { phone: data.phone }),
-      ...(data.address && { address: data.address }),
-      ...(data.email && { email: data.email }),
-    });
     const orderData = JSON.stringify({
       amount: data.price * 100,
       ccy: 980,
@@ -47,35 +34,57 @@ export async function POST(req: Request) {
       },
     };
 
-    const invoiceResponse = await new Promise<{ invoiceUrl: string }>(
-      (resolve, reject) => {
-        const reqMono = https.request(options, (res) => {
-          let body = "";
-          res.on("data", (chunk) => {
-            body += chunk;
-          });
-          res.on("end", () => {
-            try {
-              const parsed = JSON.parse(body);
-              if (parsed.pageUrl) {
-                resolve({ invoiceUrl: parsed.pageUrl });
-              } else {
-                reject(new Error("pageUrl not found in response"));
-              }
-            } catch (err) {
-              reject(err);
+    const invoiceResponse = await new Promise<{
+      invoiceUrl: string;
+      invoiceId: string;
+    }>((resolve, reject) => {
+      const reqMono = https.request(options, (res) => {
+        let body = "";
+        res.on("data", (chunk) => {
+          body += chunk;
+        });
+        res.on("end", () => {
+          try {
+            const parsed = JSON.parse(body);
+            if (parsed.pageUrl && parsed.invoiceId) {
+              resolve({
+                invoiceUrl: parsed.pageUrl,
+                invoiceId: parsed.invoiceId,
+              });
+            } else {
+              reject(new Error("invoiceId or pageUrl not found in response"));
             }
-          });
+          } catch (err) {
+            reject(err);
+          }
         });
+      });
 
-        reqMono.on("error", (err) => {
-          reject(err);
-        });
+      reqMono.on("error", (err) => {
+        reject(err);
+      });
 
-        reqMono.write(orderData);
-        reqMono.end();
-      }
-    );
+      reqMono.write(orderData);
+      reqMono.end();
+    });
+
+    // Сохраняем заказ с invoiceId
+    await createBookSale({
+      orderId,
+      bookId: data.bookId,
+      type: data.type,
+      price: data.price,
+      status: "pending",
+      invoiceId: invoiceResponse.invoiceId,
+      bookName: data.bookName,
+
+      ...(data.format && { format: data.format }),
+      ...(data.firstName && { firstName: data.firstName }),
+      ...(data.lastName && { lastName: data.lastName }),
+      ...(data.phone && { phone: data.phone }),
+      ...(data.address && { address: data.address }),
+      ...(data.email && { email: data.email }),
+    });
 
     return NextResponse.json(
       { url: invoiceResponse.invoiceUrl },

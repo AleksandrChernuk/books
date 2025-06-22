@@ -1,6 +1,7 @@
 export type IOrderBody = {
   bookId: string;
-  format: string;
+  bookName: string;
+  format?: string;
   type: "ebook" | "paper";
   result_url: string;
   price: number;
@@ -14,19 +15,20 @@ export type IOrderBody = {
 type CheckoutResponse = { url: string };
 
 export async function checkout(body: IOrderBody): Promise<CheckoutResponse> {
-  console.log(body);
   const normalizeData = {
     bookId: body.bookId,
-    format: body.format,
     type: body.type,
     result_url: body.result_url,
     price: body.price,
+    bookName: body.bookName,
+    ...(body.format && { format: body.format }),
     ...(body.firstName && { firstName: body.firstName }),
     ...(body.lastName && { lastName: body.lastName }),
     ...(body.phone && { phone: body.phone }),
     ...(body.address && { address: body.address }),
     ...(body.email && { email: body.email }),
   };
+
   try {
     const response = await fetch(`/api/monopay`, {
       method: "POST",

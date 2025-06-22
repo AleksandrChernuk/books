@@ -18,6 +18,15 @@ function Footer() {
               {icons[social.title]}
             </Link>
           ))}
+          <Link
+            href={"https://www.patreon.com/V_Prymost"}
+            target="_blank"
+            prefetch={false}
+            aria-label={"patreon"}
+            className="text-white"
+          >
+            Patreon
+          </Link>
         </div>
       </div>
     </footer>

@@ -12,6 +12,24 @@ import CheckoutForm from "@/components/modules/checkout-form";
 
 export type Params = Promise<{ slug: string }>;
 
+export async function generateMetadata({ params }: { params: Params }) {
+  const { slug } = await params;
+
+  const book = await getBookBySlug(slug);
+
+  if (!book) {
+    return {
+      title: "Книга не знайдена",
+      description: "Обрана книга не знайдена або була видалена.",
+    };
+  }
+
+  return {
+    title: `${book.title} — книга Валерія Примоста`,
+    description: book.title || "Детальний опис книги, автор — Валерій Примост.",
+  };
+}
+
 export async function generateStaticParams() {
   const books = await getAllBooks();
   return books.map((book) => ({ slug: book.slug }));
@@ -24,9 +42,11 @@ type Props = {
 export default async function SlugPage({ params }: Props) {
   const { slug } = await params;
   const book = await getBookBySlug(slug);
+
   if (!book) {
     return notFound();
   }
+
   const cover =
     typeof book.coverImageUrl === "string" && book.coverImageUrl
       ? book.coverImageUrl

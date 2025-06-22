@@ -4,6 +4,12 @@ import booksOll from "@/assets/books_all.png";
 import Container from "@/components/shared/Container";
 import Wrapper from "@/components/shared/Wrapper";
 
+export const metadata = {
+  title: "Валерій Примост — стратегічний аналітик, автор, сторітелер",
+  description:
+    "Офіційна сторінка Валерія Примоста — аналітика, автора методології «5 Принципів Ефективності» та книг про цивілізаційний розвиток. Досвід, сторітелінг, прогнози, відео та добірка книжок.",
+};
+
 export default function MainPage() {
   return (
     <>

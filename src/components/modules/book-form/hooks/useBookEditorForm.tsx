@@ -52,6 +52,7 @@ export default function useBookEditorForm({ book }: Props) {
     resolver: zodResolver(BookFormSchema),
     defaultValues,
   });
+
   useEffect(() => {
     if (book) {
       form.reset(defaultValues);
@@ -70,12 +71,16 @@ export default function useBookEditorForm({ book }: Props) {
       const isEdit = Boolean(book?.id);
       const newId = isEdit ? book!.id : uuidv4();
 
-      // ✅ Проверка: если не бумажная книга, то должен быть хотя бы один формат
       if (
         !values.paperFormat &&
         (!values.formats || values.formats.length === 0)
       ) {
         toast.error("Додайте хоча б один електронний формат книги.");
+        return;
+      }
+
+      if (values.paperFormat && (values.price_paper ?? 0) <= 0) {
+        toast.error("Ціна паперового формату книги має бути більшою за нуль.");
         return;
       }
 
@@ -90,20 +95,48 @@ export default function useBookEditorForm({ book }: Props) {
         }
       }
 
+      // const formats: BookFormat[] = await Promise.all(
+      //   safeFormats.map(async (f) => {
+      //     if (f.file instanceof File) {
+      //       const prev = book?.formats.find((x) => x.id === f.id);
+      //       if (prev?.url) await deleteFileFromStorage(prev.url);
+
+      //       const ext = f.file.name.split(".").pop()!;
+      //       const ref = storageRef(
+      //         storage,
+      //         `books/${newId}-${f.format}.${ext}`
+      //       );
+      //       await uploadBytes(ref, f.file);
+      //       const url = await getDownloadURL(ref);
+      //       return { id: f.id, format: f.format, filename: f.file.name, url };
+      //     }
+
+      //     return {
+      //       id: f.id,
+      //       format: f.format,
+      //       filename: f.filename,
+      //       url: f.url!,
+      //     };
+      //   })
+      // );
       const formats: BookFormat[] = await Promise.all(
         safeFormats.map(async (f) => {
-          if (f.file instanceof File) {
-            const prev = book?.formats.find((x) => x.id === f.id);
-            if (prev?.url) await deleteFileFromStorage(prev.url);
+          const prev = book?.formats.find((x) => x.id === f.id);
 
-            const ext = f.file.name.split(".").pop()!;
-            const ref = storageRef(
-              storage,
-              `books/${newId}-${f.format}.${ext}`
-            );
+          if (f.file instanceof File) {
+            if (prev?.url && prev.filename !== f.filename) {
+              await deleteFileFromStorage(prev.url);
+            }
+
+            const ref = storageRef(storage, `books/${f.filename}`);
             await uploadBytes(ref, f.file);
             const url = await getDownloadURL(ref);
-            return { id: f.id, format: f.format, filename: f.file.name, url };
+
+            return { id: f.id, format: f.format, filename: f.filename, url };
+          }
+
+          if (prev && prev?.filename !== f.filename) {
+            await deleteFileFromStorage(prev?.url);
           }
 
           return {

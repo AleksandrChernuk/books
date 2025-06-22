@@ -1,90 +1,174 @@
-// /* eslint-disable prefer-const */
-// /* eslint-disable @typescript-eslint/no-unused-vars */
-// "use client";
+"use client";
 
-// import { bookSaleStatus } from "@/actions/book-sale.actions";
-// import { useEffect, useState } from "react";
+import Container from "@/components/shared/Container";
+import Wrapper from "@/components/shared/Wrapper";
+import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
-// type SaleStatus = "pending" | "paid" | "failed";
+type Props = {
+  orderId: string;
+};
 
-// type Props = {
-//   order_id: string;
-// };
+type OrderResponse = {
+  status: string | null;
+  bookUrl: string | null;
+  filename?: string | null;
+  salesType: string | null;
+};
 
-// type BookFormat = { url: string };
-// type Book = { formats: BookFormat[] };
+export default function PaymentStatus({ orderId }: Props) {
+  const [downloading, setDownloading] = useState(false);
+  const [status, setStatus] = useState<string | null>(null);
+  const [bookUrl, setBookUrl] = useState<string | null>(null);
+  const [salesType, setSalesType] = useState<string | null>(null);
 
-// export default function PaymentStatus({ order_id }: Props) {
-//   const [status, setStatus] = useState<SaleStatus>(null);
-//   const [book, setBook] = useState<Book | null>(null);
-//   const [error, setError] = useState<string | null>(null);
+  const [filename, setFilename] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
+  const router = useRouter();
+  useEffect(() => {
+    const load = async () => {
+      try {
+        const res = await fetch(`/api/invoice-status?invoiceId=${orderId}`);
+        const data: OrderResponse = await res.json();
+        console.log(data);
+        setStatus(data.status);
+        setBookUrl(data.bookUrl || null);
+        setFilename(data.filename || null);
+        setSalesType(data.salesType || null);
+      } catch (err) {
+        console.error("Помилка при завантаженні статусу:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    load();
+  }, [orderId]);
 
-//   useEffect(() => {
-//     let interval: NodeJS.Timeout;
-//     let stopped = false;
+  if (loading)
+    return (
+      <section className="h-full">
+        <Container className="h-full">
+          <Wrapper className="h-full">
+            <div className="flex items-center justify-center h-full">
+              <p>Завантаження...</p>
+            </div>
+          </Wrapper>
+        </Container>
+      </section>
+    );
 
-//     async function fetchStatus() {
-//       try {
-//         await fetch(`/api/order-status?order_id=${order_id}`, {
-//           cache: "no-store",
-//         });
+  if (!status)
+    return (
+      <section className="h-full">
+        <Container className="h-full">
+          <Wrapper className="h-full">
+            <div className="flex items-center justify-center gap-4 h-full">
+              <p>Статус не визначено</p>
+              <Button onClick={() => router.refresh()} variant={"default"}>
+                Спробувати ще
+              </Button>
+            </div>
+          </Wrapper>
+        </Container>
+      </section>
+    );
 
-//         const saleStatus = await bookSaleStatus(order_id);
-//         if (saleStatus) {
-//           setStatus(saleStatus.status);
-//         }
+  if (status !== "success")
+    return (
+      <section className="h-full">
+        <Container className="h-full">
+          <Wrapper className="h-full">
+            <div className="flex flex-col items-center justify-center gap-4 h-full text-center">
+              <p className="text-lg font-medium">
+                На жаль, оплата не була успішною або статус недоступний.
+              </p>
+              <Button onClick={() => router.push("/books")} variant="default">
+                Спробувати ще раз
+              </Button>
+              <Button onClick={() => router.push("/")} variant="outline">
+                На головну
+              </Button>
+            </div>
+          </Wrapper>
+        </Container>
+      </section>
+    );
 
-//         if (saleStatus?.status === "paid") {
-//           const bookRes = await fetch(
-//             `/api/book-by-order?order_id=${order_id}`
-//           );
-//           const book = await bookRes.json();
-//           setBook(book);
-//           stopped = true;
-//         }
-//       } catch (err) {
-//         setError("Помилка при перевірці статусу оплати.");
-//         stopped = true;
-//       }
-//     }
+  const handleDownload = async () => {
+    setDownloading(true);
+    if (bookUrl) {
+      try {
+        const response = await fetch(bookUrl); // CORS потрібний
+        if (!response.ok) throw new Error("Файл недоступний");
+        const blob = await response.blob();
+        const blobUrl = URL.createObjectURL(blob);
 
-//     fetchStatus();
-//     interval = setInterval(() => {
-//       if (!stopped) fetchStatus();
-//     }, 3000);
+        const link = document.createElement("a");
+        link.href = blobUrl;
+        link.download = filename || "ebook";
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
 
-//     return () => clearInterval(interval);
-//   }, [order_id]);
+        // Звільняємо ресурси
+        URL.revokeObjectURL(blobUrl);
+      } catch (error) {
+        console.error("Помилка при скачуванні файлу:", error);
+        setDownloading(false);
+      } finally {
+        setDownloading(false);
+      }
+    }
+  };
 
-//   if (error) return <div>{error}</div>;
+  return (
+    <section className="h-full">
+      <Container className="h-full">
+        <Wrapper className="py-16 h-full flex items-center justify-center flex-col text-center space-y-4">
+          <h1 className="text-2xl font-semibold mb-4">
+            🎉 Оплата пройшла успішно!
+          </h1>
 
-//   if (status === "paid" && book) {
-//     return (
-//       <div>
-//         <h2>Оплату успішно здійснено!</h2>
-//         <a
-//           className="border border-slate-400 rounded-md p-2"
-//           href={book.formats[0].url}
-//           target="_blank"
-//           download
-//         >
-//           Завантажити книгу
-//         </a>
-//       </div>
-//     );
-//   }
+          {status === "success" && salesType === "ebook" && bookUrl && (
+            <div className="space-y-4">
+              <p className="text-base text-muted-foreground">
+                Дякуємо за покупку електронної книги! Ви можете завантажити її
+                одразу, натиснувши на кнопку нижче.
+              </p>
+              <Button
+                onClick={handleDownload}
+                variant="outline"
+                disabled={downloading}
+              >
+                {downloading ? "Завантаження..." : "📥 Завантажити книгу"}
+              </Button>
+              <p className="text-sm text-muted-foreground">
+                📧 Копія книги також була відправлена на вашу електронну пошту.
+              </p>
+              <Button onClick={() => router.push("/")} variant="default">
+                На головну
+              </Button>
+            </div>
+          )}
 
-//   if (status === "pending") {
-//     return (
-//       <div>
-//         Оплата ще обробляється. Зачекайте кілька хвилин... (статус оновлюється)
-//       </div>
-//     );
-//   }
-
-//   if (status === "failed") {
-//     return <div>Оплата не пройшла. Спробуйте ще раз.</div>;
-//   }
-
-//   return <div>Завантаження...</div>;
-// }
+          {salesType === "paper" && (
+            <div className="space-y-2">
+              <h5 className="text-xl font-medium">
+                Дякуємо за замовлення паперової книги! 📚
+              </h5>
+              <p className="text-base text-muted-foreground">
+                Ми отримали вашу оплату та найближчим часом надішлемо книгу на
+                вказану адресу. Слідкуйте за оновленнями — повідомимо вас, щойно
+                відправимо посилку.
+              </p>
+              <Button onClick={() => router.push("/")} variant="default">
+                На головну
+              </Button>
+            </div>
+          )}
+        </Wrapper>
+      </Container>
+    </section>
+  );
+}
