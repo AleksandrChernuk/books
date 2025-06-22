@@ -65,12 +65,13 @@ export default async function SlugPage({ params }: Props) {
               <Image
                 src={cover}
                 alt={book.title}
-                width={200}
-                height={320}
                 placeholder={`data:image/svg+xml;base64,${toBase64(
-                  shimmer(200, 320)
+                  shimmer(200, 200)
                 )}`}
-                style={{ height: "auto" }}
+                fill
+                style={{
+                  objectFit: "cover",
+                }}
               />
             </li>
             <li>
