@@ -38,10 +38,6 @@ export const socialLinks = [
     url: "https://www.facebook.com/vprimost/?locale=uk_UA",
   },
   {
-    title: "instagram",
-    url: "https://www.facebook.com/vprimost/?locale=uk_UA",
-  },
-  {
     title: "linkedin",
     url: "https://www.linkedin.com/in/valerii-prymost-a3a05545/",
   },
