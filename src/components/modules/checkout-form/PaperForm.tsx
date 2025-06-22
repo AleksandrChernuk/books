@@ -172,10 +172,10 @@ export default function PaperForm({ book }: CheckoutFormProps) {
           name="address"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Адреса відділення Нової пошти</FormLabel>
+              <FormLabel>Адреса та номер відділення Нової пошти</FormLabel>
               <FormControl>
                 <Textarea
-                  placeholder="Повна адреса доставки або відділення Нової пошти"
+                  placeholder="Будь ласка, вкажіть номер та адресу відділення Нової пошти"
                   {...field}
                   value={field.value ?? ""}
                 />
