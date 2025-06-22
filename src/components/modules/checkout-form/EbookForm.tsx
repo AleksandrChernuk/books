@@ -70,7 +70,7 @@ export default function EbookForm({ book, formats }: Props) {
         bookId: book.id,
         format: data.format,
         price: book.price || 0,
-        result_url: `http://localhost:3000/success`,
+        result_url: `https://prymost.com.ua/success`,
         email: data.email,
         bookName: book.title,
       });
@@ -85,7 +85,7 @@ export default function EbookForm({ book, formats }: Props) {
   };
   return (
     <Form {...form}>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
         <FormField
           control={control}
           name="format"
@@ -135,11 +135,17 @@ export default function EbookForm({ book, formats }: Props) {
         />
 
         {error && <p className="text-sm text-red-500 my-4 pt-2">{error}</p>}
-        <div className="mt-4">
+        <div className="flex items-center gap-2">
           <DialogClose asChild>
-            <Button variant="outline">Скасувати</Button>
+            <Button
+              variant="outline"
+              className="w-1/2"
+              onClick={() => form.reset()}
+            >
+              Скасувати
+            </Button>
           </DialogClose>
-          <Button type="submit" disabled={loading}>
+          <Button type="submit" disabled={loading} className="w-1/2">
             {loading ? (
               <span className="flex items-center gap-2">
                 <Loader2 className="w-4 h-4 animate-spin" /> Завантаження...

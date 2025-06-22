@@ -1,11 +1,14 @@
+import ContactForm from "@/components/modules/contact-form";
+import Container from "@/components/shared/Container";
+import Wrapper from "@/components/shared/Wrapper";
 import React from "react";
 
 export default function AboutPage() {
   return (
     <>
       <section>
-        <div className="max-w-6xl mx-auto px-4 text-gray-700">
-          <div className="pt-10 md:pt-20">
+        <Container>
+          <Wrapper className="text-gray-700">
             <h3 className="text-center">Основні досягнення</h3>
             <ul className="pl-5 space-y-2 mt-4">
               <li>
@@ -53,8 +56,15 @@ export default function AboutPage() {
               </li>
               <li>Велика душа, яка щиро прагне змінити цей світ на краще.</li>
             </ul>
-          </div>
-        </div>
+          </Wrapper>
+        </Container>
+      </section>
+      <section>
+        <Container>
+          <Wrapper className="text-gray-700 flex items-center justify-center py-10">
+            <ContactForm />
+          </Wrapper>
+        </Container>
       </section>
     </>
   );

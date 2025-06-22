@@ -80,7 +80,7 @@ export default function PaperForm({ book }: CheckoutFormProps) {
       const commonData = {
         bookId: book.id,
         type: data.type,
-        result_url: `http://localhost:3000/success`,
+        result_url: `https://prymost.com.ua/success`,
         price: book.price_paper || 0,
       };
 
@@ -91,6 +91,7 @@ export default function PaperForm({ book }: CheckoutFormProps) {
         phone: data.phone,
         address: data.address,
         bookName: book.title,
+        email: data.email,
       });
 
       window.location.href = response.url;
@@ -103,7 +104,7 @@ export default function PaperForm({ book }: CheckoutFormProps) {
 
   return (
     <Form {...form}>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
         <FormField
           control={control}
           name="firstName"
@@ -163,10 +164,6 @@ export default function PaperForm({ book }: CheckoutFormProps) {
                   value={field.value ?? ""}
                 />
               </FormControl>
-              <p className="text-xs text-muted-foreground">
-                На цю адресу буде надіслано електронну версію книги після
-                оплати.
-              </p>
             </FormItem>
           )}
         />
@@ -188,11 +185,17 @@ export default function PaperForm({ book }: CheckoutFormProps) {
         />
 
         {error && <p className="text-sm text-red-500 my-4 pt-2">{error}</p>}
-        <div className="mt-4">
+        <div className="flex items-center gap-2">
           <DialogClose asChild>
-            <Button variant="outline">Скасувати</Button>
+            <Button
+              variant="outline"
+              className="w-1/2"
+              onClick={() => form.reset()}
+            >
+              Скасувати
+            </Button>
           </DialogClose>
-          <Button type="submit" disabled={loading}>
+          <Button type="submit" disabled={loading} className="w-1/2">
             {loading ? (
               <span className="flex items-center gap-2">
                 <Loader2 className="w-4 h-4 animate-spin" /> Завантаження...

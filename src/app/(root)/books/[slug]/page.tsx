@@ -60,26 +60,28 @@ export default async function SlugPage({ params }: Props) {
         </div>
 
         <div>
-          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-10 ">
-            <li className="relative min-h-80">
-              <Image
-                src={cover}
-                alt={book.title}
-                placeholder={`data:image/svg+xml;base64,${toBase64(
-                  shimmer(200, 200)
-                )}`}
-                fill
-                style={{
-                  objectFit: "cover",
-                }}
-              />
+          <ul className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-10 ">
+            <li className="relative min-h-80 sm:col-span-2">
+              <div className="w-[320px] h-[400px]">
+                <Image
+                  src={cover}
+                  alt={book.title}
+                  placeholder={`data:image/svg+xml;base64,${toBase64(
+                    shimmer(200, 200)
+                  )}`}
+                  fill
+                  style={{
+                    objectFit: "contain",
+                  }}
+                />
+              </div>
             </li>
             <li>
               <ul className="flex flex-col">
                 <li>
-                  <h1>{book.title}</h1>
+                  <h1 className="text-2xl">{book.title}</h1>
                 </li>
-                <li className="w-fit">
+                <li className="w-full">
                   <CheckoutForm
                     book={book}
                     formats={book.formats.map((e) => e.format)}

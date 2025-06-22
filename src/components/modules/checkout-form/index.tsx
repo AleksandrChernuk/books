@@ -25,19 +25,21 @@ export default function CheckoutForm({ book, formats }: CheckoutFormProps) {
   const [type, setType] = useState<"ebook" | "paper">("ebook");
   return (
     <div className="p-4 border border-slate-200 rounded-2xl">
-      <ul className="flex gap-4 mb-4">
+      <ul className="flex gap-4 mb-4 w-full">
         {book.price !== undefined && book.price > 0 && (
-          <li className="p-1 rounded-md bg-slate-200 ">
+          <li className="p-1 rounded-md bg-slate-200 w-1/2">
             <p className="mr-4 text-xs">Електронна</p>
             <p>{book.price} UAH</p>
           </li>
         )}
-        {book.price_paper !== undefined && book.price_paper > 0 && (
-          <li className="p-1 rounded-md bg-slate-200">
-            <p className="mr-4 text-xs">Паперова</p>
-            <p>{book.price_paper} UAH</p>
-          </li>
-        )}
+        {book.paperFormat &&
+          book.price_paper !== undefined &&
+          book.price_paper > 0 && (
+            <li className="p-1 rounded-md bg-slate-200 w-1/2">
+              <p className="mr-4 text-xs">Паперова</p>
+              <p>{book.price_paper} UAH</p>
+            </li>
+          )}
       </ul>
 
       <Dialog>
@@ -61,7 +63,7 @@ export default function CheckoutForm({ book, formats }: CheckoutFormProps) {
                 <TabsTrigger value="ebook">Електронна</TabsTrigger>
               ) : null}
 
-              {book.price_paper && book.price_paper > 0 ? (
+              {book.paperFormat && book.price_paper && book.price_paper > 0 ? (
                 <TabsTrigger value="paper">Паперова</TabsTrigger>
               ) : null}
             </TabsList>
