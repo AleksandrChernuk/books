@@ -119,13 +119,9 @@ export default function ContactForm() {
               name="massege"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Адреса доставки</FormLabel>
+                  <FormLabel>Текст повідомлення</FormLabel>
                   <FormControl>
-                    <Textarea
-                      placeholder="Текст повідомлення"
-                      {...field}
-                      value={field.value ?? ""}
-                    />
+                    <Textarea {...field} value={field.value ?? ""} />
                   </FormControl>
                 </FormItem>
               )}
