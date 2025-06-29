@@ -32,7 +32,7 @@ const contactSchema = z.object({
     .string()
     .min(1, { message: "Обовʼязково вказати імʼя" })
     .email({ message: "Некоректна email адреса" }),
-  massege: z.string().min(5, { message: "Обовʼязково вказати текст" }),
+  message: z.string().min(5, { message: "Обовʼязково вказати текст" }),
 });
 type FormValues = z.infer<typeof contactSchema>;
 
@@ -45,7 +45,7 @@ export default function ContactForm() {
     defaultValues: {
       name: "",
       email: "",
-      massege: "",
+      message: "",
     },
   });
 
@@ -53,7 +53,6 @@ export default function ContactForm() {
 
   const onSubmit = async (data: FormValues) => {
     setLoading(true);
-    console.log("onSubmit");
     try {
       await addDoc(collection(firestore, "contacts"), {
         ...data,
@@ -73,8 +72,11 @@ export default function ContactForm() {
   return (
     <Card className="w-full max-w-lg">
       <CardHeader>
-        <CardTitle>{`Зворотний зв'язок`}</CardTitle>
-        <CardDescription>Напишіть нам своє повідомлення нижче.</CardDescription>
+        <CardTitle>{`Пишіть мені свої пропозиції та побажання`}</CardTitle>
+        <CardDescription>
+          Я завжди відкритий до ваших думок і ідей. Ваш зворотній зв’язок для
+          мене важливий.
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <Form {...form}>
@@ -116,7 +118,7 @@ export default function ContactForm() {
             />
             <FormField
               control={control}
-              name="massege"
+              name="message"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Текст повідомлення</FormLabel>

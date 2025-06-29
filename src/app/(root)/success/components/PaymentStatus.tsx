@@ -31,7 +31,6 @@ export default function PaymentStatus({ orderId }: Props) {
       try {
         const res = await fetch(`/api/invoice-status?invoiceId=${orderId}`);
         const data: OrderResponse = await res.json();
-        console.log(data);
         setStatus(data.status);
         setBookUrl(data.bookUrl || null);
         setFilename(data.filename || null);

@@ -9,6 +9,7 @@ import pl from "@/assets/placeholder.webp";
 import { toBase64 } from "@/helpers/toBase64";
 import { shimmer } from "@/helpers/shimmer";
 import CheckoutForm from "@/components/modules/checkout-form";
+import Wrapper from "@/components/shared/Wrapper";
 
 export type Params = Promise<{ slug: string }>;
 
@@ -54,7 +55,7 @@ export default async function SlugPage({ params }: Props) {
 
   return (
     <Container>
-      <div className="py-10">
+      <Wrapper className="pb-20">
         <div className="mb-4">
           <BackBtn />
         </div>
@@ -95,7 +96,7 @@ export default async function SlugPage({ params }: Props) {
             dangerouslySetInnerHTML={{ __html: book?.fullDescription || "" }}
           />{" "}
         </div>
-      </div>
+      </Wrapper>
     </Container>
   );
 }

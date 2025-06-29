@@ -16,6 +16,7 @@ export const BookFormSchema = z
     fullDescription: z.string().min(1, "Опис обов'язковий"),
     paperFormat: z.boolean().optional(),
     formats: z.array(BookFormatClientSchema).optional(),
+    sorting: z.coerce.number().int(),
     coverImageUrl: z
       .any()
       .refine(

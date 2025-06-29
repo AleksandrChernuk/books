@@ -17,6 +17,7 @@ export type Book = {
   createdAt: string;
   updatedAt: string;
   paperFormat?: boolean;
+  sorting: number;
 };
 
 export type BookFormatClientData = {

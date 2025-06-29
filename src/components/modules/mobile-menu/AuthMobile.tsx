@@ -22,14 +22,14 @@ export function AuthMobile() {
         </Button>
       </DrawerTrigger>
       <DrawerContent>
-        <div className="mx-auto w-full max-w-sm">
+        <div className="mx-auto w-full max-w-sm ">
+          <nav className="flex items-center gap-4 text-xl p-4 overflow-x-scroll">
+            <NavLinks className="flex items-center" links={privateLinks} />
+          </nav>
           <DrawerHeader className="sr-only">
             <DrawerTitle className="sr-only"></DrawerTitle>
             <DrawerDescription className="sr-only"></DrawerDescription>
           </DrawerHeader>
-          <div className="p-4 overflow-x-scroll">
-            <NavLinks links={privateLinks} />
-          </div>
         </div>
       </DrawerContent>
     </Drawer>

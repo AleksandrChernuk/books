@@ -1,6 +1,6 @@
 "use client";
 
-import { Form } from "@/components/ui/form";
+import { Form, FormControl, FormItem, FormLabel } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import { Book } from "@/types/book.types";
 import { TextField } from "@/components/shared/TextField";
@@ -9,6 +9,8 @@ import FormatsArray from "./FormatsArray";
 import FileUploadField from "@/components/shared/FileInput";
 import { TextEditorField } from "@/components/shared/TextEditorField";
 import { LoaderCircle } from "lucide-react";
+import { Input } from "@/components/ui/input copy";
+import { Controller } from "react-hook-form";
 
 type Props = {
   book?: Book;
@@ -18,14 +20,6 @@ type Props = {
 export default function BookForm({ book }: Props) {
   const { form, onBookEditorSubmit, isLoading } = useBookEditorForm({ book });
 
-  if (isLoading) {
-    return (
-      <div className="py-5 flex items-center justify-center min-h-dvh">
-        <LoaderCircle size={40} className="animate-spin" />
-      </div>
-    );
-  }
-
   return (
     <Form {...form}>
       <form
@@ -33,17 +27,45 @@ export default function BookForm({ book }: Props) {
         className="space-y-8 "
       >
         <div className="flex flex-col gap-4">
-          <TextField name="title" label="Назва" />
-          <TextField
-            name="price"
-            inputProps={{ type: "number" }}
-            label="Ціна електронної кники"
-          />
-          <TextField
-            name="price_paper"
-            inputProps={{ type: "number" }}
-            label="Ціна паперової кники"
-          />
+          <div className="grid grid-cols-4 gap-4">
+            <div className="col-span-3">
+              <TextField name="title" label="Назва" />
+            </div>
+            <div>
+              <Controller
+                name="sorting"
+                control={form.control}
+                render={({ field, fieldState }) => {
+                  return (
+                    <FormItem className="grid gap-2 ">
+                      <FormLabel htmlFor="title">Порядок сортування</FormLabel>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          type="number"
+                          id="sorting"
+                          aria-invalid={!!fieldState.error}
+                        />
+                      </FormControl>
+                    </FormItem>
+                  );
+                }}
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-4 w-full">
+            <TextField
+              name="price"
+              inputProps={{ type: "number" }}
+              label="Ціна електронної кники"
+            />
+            <TextField
+              name="price_paper"
+              inputProps={{ type: "number" }}
+              label="Ціна паперової кники"
+            />
+          </div>
         </div>
         <div className="grid grid-cols-2">
           <div>
@@ -57,8 +79,9 @@ export default function BookForm({ book }: Props) {
         <TextEditorField name="fullDescription" label="Опис" />
 
         <div className="flex justify-end">
-          <Button variant="default" disabled={isLoading}>
+          <Button variant="default" type="submit" disabled={isLoading}>
             {book?.id ? "Оновити" : "Додати"}
+            {isLoading && <LoaderCircle size={16} className="animate-spin" />}
           </Button>
         </div>
       </form>

@@ -19,7 +19,6 @@ type Props = {
 
 export default async function BlogPostPage({ params }: Props) {
   const { slug } = await params;
-  console.log(slug);
   const post = await getPostBySlug(slug);
 
   if (!post) {
@@ -29,7 +28,7 @@ export default async function BlogPostPage({ params }: Props) {
   return (
     <section>
       <Container>
-        <Wrapper>
+        <Wrapper className="pb-20">
           <div className="mb-4">
             <BackBtn />
           </div>

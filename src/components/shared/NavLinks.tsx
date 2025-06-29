@@ -6,6 +6,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { TNavLinks } from "@/constans/nav.constans";
+import { ScrollArea } from "../ui/scroll-area";
+import { useUserStore } from "@/store/useStore";
 
 export default function NavLinks({
   links,
@@ -15,26 +17,40 @@ export default function NavLinks({
   className?: string;
 }) {
   const pathname = usePathname();
+  const currentUser = useUserStore((state) => state.currentUser);
 
   return (
-    <div className={cn(className)}>
-      {links.map((link) => {
-        const isActive = pathname === link.url;
+    <ScrollArea>
+      <div className={cn(className)}>
+        {links.map((link) => {
+          const isActive = pathname === link.url;
 
-        return (
-          <Button
-            key={link.url}
-            asChild
-            variant="link"
-            className={cn(
-              "transition-colors",
-              isActive && "underline text-primary font-semibold"
-            )}
-          >
-            <Link href={link.url}>{link.title}</Link>
-          </Button>
-        );
-      })}
-    </div>
+          return (
+            <Button
+              key={link.url}
+              asChild
+              variant="link"
+              className={cn(
+                "transition-colors px-2 py-1",
+                isActive && "underline text-primary font-semibold"
+              )}
+            >
+              <Link href={link.url}>{link.title}</Link>
+            </Button>
+          );
+        })}
+        {currentUser && !pathname.startsWith("/admin") && (
+          <div>
+            <Button
+              variant="link"
+              asChild
+              className={cn("transition-colors px-2 py-1")}
+            >
+              <Link href="/admin">Адмін панель</Link>
+            </Button>
+          </div>
+        )}
+      </div>
+    </ScrollArea>
   );
 }

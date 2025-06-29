@@ -23,6 +23,10 @@ export const privateLinks = [
     url: "/",
   },
   {
+    title: "Зворотій зв`язок",
+    url: "/admin",
+  },
+  {
     title: "Публікації",
     url: "/admin/blog-edit",
   },

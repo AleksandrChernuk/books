@@ -17,7 +17,6 @@ import { deleteFileFromStorage } from "@/lib/firebase-upload";
 import slugify from "slugify";
 import { useEffect, useRef, useState } from "react";
 import { BookFormData, BookFormSchema } from "@/schema/admin.schema";
-import { nanoid } from "nanoid";
 
 type Props = { book?: Book };
 
@@ -35,6 +34,7 @@ export default function useBookEditorForm({ book }: Props) {
         formats: book.formats.map((f) => ({ ...f, file: undefined })),
         paperFormat: book.paperFormat || false,
         coverImageUrl: book.coverImageUrl ?? "",
+        sorting: book?.sorting || 0,
       }
     : {
         title: "",
@@ -42,10 +42,9 @@ export default function useBookEditorForm({ book }: Props) {
         price_paper: 0,
         fullDescription: "<p></p>",
         paperFormat: false,
-        formats: [
-          { id: nanoid(), format: "pdf", filename: "", file: undefined },
-        ],
+        formats: [],
         coverImageUrl: "",
+        sorting: 0,
       };
 
   const form = useForm<BookFormData>({
@@ -63,6 +62,7 @@ export default function useBookEditorForm({ book }: Props) {
     }
     // eslint-disable-next-line
   }, [book]);
+
   const onBookEditorSubmit = async (values: BookFormData) => {
     setIsLoading(true);
 
@@ -95,30 +95,6 @@ export default function useBookEditorForm({ book }: Props) {
         }
       }
 
-      // const formats: BookFormat[] = await Promise.all(
-      //   safeFormats.map(async (f) => {
-      //     if (f.file instanceof File) {
-      //       const prev = book?.formats.find((x) => x.id === f.id);
-      //       if (prev?.url) await deleteFileFromStorage(prev.url);
-
-      //       const ext = f.file.name.split(".").pop()!;
-      //       const ref = storageRef(
-      //         storage,
-      //         `books/${newId}-${f.format}.${ext}`
-      //       );
-      //       await uploadBytes(ref, f.file);
-      //       const url = await getDownloadURL(ref);
-      //       return { id: f.id, format: f.format, filename: f.file.name, url };
-      //     }
-
-      //     return {
-      //       id: f.id,
-      //       format: f.format,
-      //       filename: f.filename,
-      //       url: f.url!,
-      //     };
-      //   })
-      // );
       const formats: BookFormat[] = await Promise.all(
         safeFormats.map(async (f) => {
           const prev = book?.formats.find((x) => x.id === f.id);
@@ -174,6 +150,7 @@ export default function useBookEditorForm({ book }: Props) {
         title: values.title,
         slug,
         price: values.price,
+        sorting: values.sorting,
         price_paper: values.price_paper,
         fullDescription: values.fullDescription,
         formats,
@@ -192,6 +169,7 @@ export default function useBookEditorForm({ book }: Props) {
       router.push("/admin/books-edit");
     } catch (err) {
       console.error(err);
+      setIsLoading(false);
       toast.error("Помилка при збереженні книги.");
     } finally {
       setIsLoading(false);

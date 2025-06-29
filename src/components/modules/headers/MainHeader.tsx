@@ -24,6 +24,7 @@ function MainHeader() {
               Валерій Примост
             </Link>
           </div>
+
           <nav className="hidden md:flex items-center justify-between gap-4 ">
             <NavLinks links={publicLinks} className="flex items-center gap-4" />
           </nav>

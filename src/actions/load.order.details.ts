@@ -28,7 +28,6 @@ export async function loadOrderDetails(orderId: string) {
 
   if (invoiceId) {
     status = await fetchInvoiceStatus(invoiceId);
-    console.log(status);
   }
 
   if (bookId && format) {

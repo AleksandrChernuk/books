@@ -86,8 +86,7 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
 
 export async function updatePost(id: string, data: Partial<BlogPost>) {
   const docRef = doc(firestore, "posts", id);
-  console.log(data);
-  await updateDoc(docRef, {
+   await updateDoc(docRef, {
     ...data,
     updatedAt: serverTimestamp(),
   });

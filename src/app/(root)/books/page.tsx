@@ -23,17 +23,23 @@ export default async function Books() {
   }
 
   return (
-    <Container>
-      <Wrapper>
-        <h1 className="text-center">Книги</h1>
-        <ul className="flex flex-col justify-center items-center sm:flex-row sm:justify-start md:items-center gap-4 flex-wrap">
-          {books.map((book) => (
-            <li key={book.id}>
-              <BookCardPublick book={book} />
-            </li>
-          ))}
-        </ul>
-      </Wrapper>
-    </Container>
+    <>
+      <section>
+        <Container>
+          <Wrapper className="pb-20">
+            <h1 className="text-center">Книги</h1>
+            <ul className="flex flex-col justify-center items-center sm:flex-row md:items-center gap-4 flex-wrap">
+              {books
+                .sort((a, b) => (b.sorting ?? 0) - (a.sorting ?? 0))
+                .map((book) => (
+                  <li key={book.id}>
+                    <BookCardPublick book={book} />
+                  </li>
+                ))}
+            </ul>
+          </Wrapper>
+        </Container>
+      </section>
+    </>
   );
 }

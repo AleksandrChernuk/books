@@ -1,4 +1,3 @@
-import { socialLinks } from "@/constans/nav.constans";
 import { icons } from "@/constans/socialIcons";
 import Link from "next/link";
 
@@ -7,17 +6,14 @@ function Footer() {
     <footer className="bg-slate-800">
       <div className="max-w-6xl mx-auto px-4 py-10">
         <div className="flex items-center justify-center gap-4">
-          {socialLinks.map((social) => (
-            <Link
-              key={social.title}
-              href={social.url}
-              target="_blank"
-              prefetch={false}
-              aria-label={social.title}
-            >
-              {icons[social.title]}
-            </Link>
-          ))}
+          <Link
+            href="https://www.facebook.com/vprimost/?locale=uk_UA"
+            target="_blank"
+            prefetch={false}
+            aria-label="facebook"
+          >
+            {icons["facebook"]}
+          </Link>
           <Link
             href={"https://www.patreon.com/V_Prymost"}
             target="_blank"
@@ -26,6 +22,14 @@ function Footer() {
             className="text-white"
           >
             Patreon
+          </Link>
+          <Link
+            href={"https://www.linkedin.com/in/valerii-prymost-a3a05545/"}
+            target="_blank"
+            prefetch={false}
+            aria-label="linkedin"
+          >
+            {icons["linkedin"]}
           </Link>
         </div>
       </div>

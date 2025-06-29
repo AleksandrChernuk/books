@@ -34,7 +34,7 @@ export async function getAllBooks(): Promise<Book[]> {
       price: data.price,
       paperFormat: data.paperFormat,
       price_paper: data.price_paper,
-
+      sorting: data.sorting,
       shortDescription: data.shortDescription,
       fullDescription: data.fullDescription,
       formats: (data.formats || []).map((f: any) => ({
@@ -61,7 +61,7 @@ export async function getBookById(id: string): Promise<Book | null> {
     slug: data.slug,
     price: data.price,
     price_paper: data.price_paper,
-
+    sorting: data.sorting,
     paperFormat: data.paperFormat,
     fullDescription: data.fullDescription,
     formats: (data.formats || []).map((f: any) => ({
@@ -125,7 +125,7 @@ export async function getBookBySlug(slug: string): Promise<Book | null> {
     slug: data.slug,
     price: data.price,
     price_paper: data.price_paper,
-
+    sorting: data.sorting,
     paperFormat: data.paperFormat,
     shortDescription: data.shortDescription,
     fullDescription: data.fullDescription,

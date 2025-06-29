@@ -3,6 +3,11 @@ import dayjs from "dayjs";
 
 export default async function ContactsList() {
   const contacts = await getContacts();
+
+  if (!contacts) {
+    return null;
+  }
+
   return (
     <ul>
       {contacts.map((el) => (

@@ -18,11 +18,13 @@ export default async function BooksEdit() {
           <CreateButton href="/admin/books-edit/create" />
         </div>
         <ul className="flex items-start gap-4 flex-wrap">
-          {books.map((book) => (
-            <li key={book.id}>
-              <BookCard book={book} />
-            </li>
-          ))}
+          {books
+            .sort((a, b) => (b.sorting ?? 0) - (a.sorting ?? 0))
+            .map((book) => (
+              <li key={book.id}>
+                <BookCard book={book} />
+              </li>
+            ))}
         </ul>
       </div>
     </Container>

@@ -23,11 +23,13 @@ export default async function PostsPage() {
           </Button>
         </div>
         <ul className="space-y-2">
-          {posts.map((post) => (
-            <li key={post.id}>
-              <PostCard post={post} admin />
-            </li>
-          ))}
+          {posts
+            .sort((a, b) => (b.sorting ?? 0) - (a.sorting ?? 0))
+            .map((post) => (
+              <li key={post.id}>
+                <PostCard post={post} admin />
+              </li>
+            ))}
         </ul>
       </div>
     </Container>

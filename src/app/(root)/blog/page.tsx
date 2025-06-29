@@ -16,29 +16,31 @@ export default async function PostsPage() {
   }
 
   return (
-    <section>
-      <Container>
-        <Wrapper className="py-4">
-          <div className="mb-4">
-            <BackBtn />
-          </div>
-          <h1>Мої публікації</h1>
+    <>
+      <section>
+        <Container>
+          <Wrapper className="pb-20">
+            <div className="mb-4">
+              <BackBtn />
+            </div>
+            <h1>Мої публікації</h1>
 
-          {posts.length > 0 ? (
-            <ul className="space-y-4">
-              {posts
-                .sort((a, b) => (b.sorting ?? 0) - (a.sorting ?? 0))
-                .map((el) => (
-                  <li key={el.id}>
-                    <PostCard post={el} />
-                  </li>
-                ))}
-            </ul>
-          ) : (
-            <p>Ще немає публікацій</p>
-          )}
-        </Wrapper>
-      </Container>
-    </section>
+            {posts.length > 0 ? (
+              <ul className="space-y-4">
+                {posts
+                  .sort((a, b) => (b.sorting ?? 0) - (a.sorting ?? 0))
+                  .map((el) => (
+                    <li key={el.id}>
+                      <PostCard post={el} />
+                    </li>
+                  ))}
+              </ul>
+            ) : (
+              <p>Ще немає публікацій</p>
+            )}
+          </Wrapper>
+        </Container>
+      </section>
+    </>
   );
 }
