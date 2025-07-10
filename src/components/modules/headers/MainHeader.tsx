@@ -1,14 +1,13 @@
 import Link from "next/link";
-import { Caveat } from "next/font/google";
 import { MainMenu } from "../mobile-menu/MainMenu";
 import { publicLinks } from "@/constans/nav.constans";
 import NavLinks from "@/components/shared/NavLinks";
 
-const geist = Caveat({
-  weight: "400",
-  subsets: ["cyrillic", "cyrillic-ext", "latin", "latin-ext"],
-  display: "swap",
-});
+// const geist = Caveat({
+//   weight: "400",
+//   subsets: ["cyrillic", "cyrillic-ext", "latin", "latin-ext"],
+//   display: "swap",
+// });
 
 function MainHeader() {
   return (
@@ -19,7 +18,7 @@ function MainHeader() {
             <Link
               href={"/"}
               prefetch={false}
-              className={`text-4xl text-shadow-slate-900 ${geist.className}`}
+              className={`text-2xl text-shadow-slate-900 sm:text-lg md:text-2xl italic text-shadow-xs `}
             >
               Валерій Примост
             </Link>

@@ -31,37 +31,40 @@ export default function MainPage() {
                 />
               </li>
               <li className="justify-self-end">
-                <h1 className="text-base sm:text-lg md:text-2xl font-bold italic text-slate-600 mb-0 text-shadow-xs">
-                  Письменник, історик, сторітеллер
+                <h1 className="sr-only text-base sm:text-lg md:text-2xl font-bold italic text-slate-600 mb-0 text-shadow-xs">
+                  Валерій Примост — Письменник, історик, сторітеллер
                 </h1>
-              </li>
-            </ul>
-            <ul className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-8 ">
-              <li className="p-2 shadow-lg rounded-2xl">
-                <p className="text-base text-slate-600 indent-8">
-                  {`Валерій Примост — стратегічний аналітик із багаторічним
+
+                <p className="text-base text-slate-600 indent-2">
+                  {`Валерій Примост — Письменник, історик, сторітеллер. Cтратегічний аналітик із багаторічним
                   досвідом геополітичного прогнозування та автор унікальної
                   методології "5 Принципів Ефективності" для аналізу розвитку
                   націй та організацій.`}
                 </p>
               </li>
-              <li className="p-2 shadow-lg rounded-2xl">
-                <p className="text-base text-slate-600 indent-8">
-                  Маючи доведений track record точних довгострокових прогнозів
-                  (включно з передбаченням повномасштабної війни в Україні у
-                  2013 році та президентства Зеленського у 2015-му), він поєднує
-                  глибоку аналітичну експертизу з майстерністю сторітелінгу.{" "}
-                </p>
-              </li>
-              <li className="p-2 shadow-lg rounded-2xl">
-                <p className="text-base text-slate-600 indent-8">
-                  Як багатогранний творець наративів, Валерій успішно працює у
-                  різноманітних сферах — від написання книг з цивілізаційного
-                  аналізу та сценаріїв для телевізійних серіалів до розробки
-                  рекламних кампаній, освітніх лекцій, ігрових механік та
-                  інтерактивних додатків.
-                </p>
-              </li>
+            </ul>
+            <ul className="grid grid-cols-1 gap-3 mt-8 ">
+              <ul className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-8 ">
+                <li className="p-2 shadow-lg rounded-2xl">
+                  <p className="text-base text-slate-600 indent-8">
+                    Маючи доведений track record точних довгострокових прогнозів
+                    (включно з передбаченням повномасштабної війни в Україні у
+                    2013 році та президентства Зеленського у 2015-му), він
+                    поєднує глибоку аналітичну експертизу з майстерністю
+                    сторітелінгу.{" "}
+                  </p>
+                </li>
+                <li className="p-2 shadow-lg rounded-2xl">
+                  <p className="text-base text-slate-600 indent-8">
+                    Як багатогранний творець наративів, Валерій успішно працює у
+                    різноманітних сферах — від написання книг з цивілізаційного
+                    аналізу та сценаріїв для телевізійних серіалів до розробки
+                    рекламних кампаній, освітніх лекцій, ігрових механік та
+                    інтерактивних додатків.
+                  </p>
+                </li>
+              </ul>
+
               <li className="p-2 shadow-lg rounded-2xl">
                 <p className="text-base text-slate-600 indent-8">
                   Його унікальна здатність перетворювати складні стратегічні
