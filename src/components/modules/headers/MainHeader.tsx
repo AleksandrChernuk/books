@@ -3,12 +3,6 @@ import { MainMenu } from "../mobile-menu/MainMenu";
 import { publicLinks } from "@/constans/nav.constans";
 import NavLinks from "@/components/shared/NavLinks";
 
-// const geist = Caveat({
-//   weight: "400",
-//   subsets: ["cyrillic", "cyrillic-ext", "latin", "latin-ext"],
-//   display: "swap",
-// });
-
 function MainHeader() {
   return (
     <header>
@@ -18,7 +12,7 @@ function MainHeader() {
             <Link
               href={"/"}
               prefetch={false}
-              className={`text-2xl text-shadow-slate-900 sm:text-lg md:text-2xl italic text-shadow-xs `}
+              className={`text-2xl text-shadow-slate-900 sm:text-lg md:text-2xl`}
             >
               Валерій Примост
             </Link>
