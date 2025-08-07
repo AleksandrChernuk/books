@@ -15,7 +15,7 @@ function Footer() {
             {icons["facebook"]}
           </Link>
           <Link
-            href={"https://www.patreon.com/V_Prymost"}
+            href={"https://linktr.ee/Prymost"}
             target="_blank"
             prefetch={false}
             aria-label={"patreon"}
