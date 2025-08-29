@@ -54,49 +54,73 @@ export default async function SlugPage({ params }: Props) {
       : pl;
 
   return (
-    <Container>
-      <Wrapper className="pb-20">
-        <div className="mb-4">
-          <BackBtn />
-        </div>
+    <>
+      <Container>
+        <Wrapper className="">
+          <div className="mb-4">
+            <BackBtn />
+          </div>
 
-        <div>
-          <ul className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-10 ">
-            <li className="relative min-h-80 sm:col-span-2">
-              <div className="w-[320px] h-[400px]">
-                <Image
-                  src={cover}
-                  alt={book.title}
-                  placeholder={`data:image/svg+xml;base64,${toBase64(
-                    shimmer(200, 200)
-                  )}`}
-                  fill
-                  style={{
-                    objectFit: "contain",
-                  }}
-                />
-              </div>
-            </li>
-            <li>
-              <ul className="flex flex-col">
-                <li>
-                  <h1 className="text-2xl">{book.title}</h1>
-                </li>
-                <li className="w-full">
-                  <CheckoutForm
-                    book={book}
-                    formats={book.formats.map((e) => e.format)}
+          <div>
+            <ul className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-10 ">
+              <li className="relative min-h-80 sm:col-span-2">
+                <div className="w-[320px] h-[400px]">
+                  <Image
+                    src={cover}
+                    alt={book.title}
+                    placeholder={`data:image/svg+xml;base64,${toBase64(
+                      shimmer(200, 200)
+                    )}`}
+                    fill
+                    style={{
+                      objectFit: "contain",
+                    }}
                   />
-                </li>
-              </ul>
-            </li>
-          </ul>
-          <div
-            className="prose py-10"
-            dangerouslySetInnerHTML={{ __html: book?.fullDescription || "" }}
-          />{" "}
-        </div>
-      </Wrapper>
-    </Container>
+                </div>
+              </li>
+              <li>
+                <ul className="flex flex-col">
+                  <li>
+                    <h1 className="text-2xl">{book.title}</h1>
+                  </li>
+                  <li className="w-full">
+                    <CheckoutForm
+                      book={book}
+                      formats={book.formats.map((e) => e.format)}
+                    />
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <div
+              className="prose py-10"
+              dangerouslySetInnerHTML={{ __html: book?.fullDescription || "" }}
+            />{" "}
+          </div>
+        </Wrapper>
+      </Container>
+      {slug === "ukrayinske-divo-instrukciya-z-realizaciyi" && (
+        <Container>
+          <Wrapper className="py-20 md:py-28">
+            <div className="flex flex-col items-center justify-center">
+              <h4 className="text-center md:text-start">
+                Чотири сценарії для України
+              </h4>
+              <div className="w-full aspect-video">
+                <iframe
+                  className="w-full h-full rounded-xl shadow-lg"
+                  src="https://www.youtube.com/embed/QlueXSLdMpk?si=o41f6K1zjIPCROn8"
+                  title="YouTube video player"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  allowFullScreen
+                ></iframe>
+              </div>
+            </div>
+          </Wrapper>
+        </Container>
+      )}
+    </>
   );
 }

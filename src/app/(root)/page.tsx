@@ -174,14 +174,37 @@ export default function MainPage() {
           </Wrapper>
         </Container>
       </section>
+
       <section>
         <Container>
-          <Wrapper className="py-20 md:py-28">
+          <Wrapper className=" py-20 md:py-28">
+            <div className="flex flex-col items-center justify-center">
+              <h4 className="text-center md:text-start">
+                Чотири сценарії для України
+              </h4>
+              <div className="w-full aspect-video">
+                <iframe
+                  className="w-full h-full rounded-xl shadow-lg"
+                  src="https://www.youtube.com/embed/QlueXSLdMpk?si=o41f6K1zjIPCROn8"
+                  title="YouTube video player"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  allowFullScreen
+                ></iframe>
+              </div>
+            </div>
+          </Wrapper>
+        </Container>
+      </section>
+      <section>
+        <Container>
+          <Wrapper className="pb-20 md:pb-28">
             <div className="flex flex-col items-center justify-center">
               <h4 className="text-center md:text-start">
                 Сторітелінг та нація. Як створити країну-лідера
               </h4>
-              <div className="w-full max-w-[560px] aspect-video">
+              <div className="w-full aspect-video">
                 <iframe
                   className="w-full h-full rounded-xl shadow-lg"
                   src="https://www.youtube.com/embed/q1DwdfTZ4mM?si=x0g5rxZuZmRFrHp1"
