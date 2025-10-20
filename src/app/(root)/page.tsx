@@ -195,7 +195,7 @@ export default function MainPage() {
           </Wrapper>
         </Container>
       </section>
-
+      <section className="sr-only"></section>
       <section>
         <Container>
           <Wrapper>
